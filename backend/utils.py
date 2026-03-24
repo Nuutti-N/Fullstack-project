@@ -37,8 +37,9 @@ def create_access_token(subject: Union[str, Any], expires_delta: int = None):
     encoded_jwt = jwt.encode(to_encode, jwt_key, algorithm)
     return encoded_jwt
 
-
 # After succesful login, send this too
+
+
 def create_refresh_token(subject: Union[str, Any], expires_delta: int = None):
     if expires_delta is not None:
         # UTC is little bit risk, because its work only 3.11 up versions. I recommend use timezone.utc, but risk to risk
