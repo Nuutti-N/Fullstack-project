@@ -21,3 +21,13 @@ class UserOut(BaseModel):
 class token(BaseModel):
     access_token: str
     refresh_token: str
+
+
+class TokenPayLoad(SQLModel):
+    sub: str = None  # Username or Id
+    exp: int = None  # Expiration
+
+
+class SystemUser(SQLModel):
+    id: int
+    username: str
