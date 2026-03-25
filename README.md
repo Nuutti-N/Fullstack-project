@@ -3,7 +3,6 @@
 ## Project idea
 - 
 
-
 ## Backend 
 - Python
 - Framework Fastapi
@@ -13,3 +12,7 @@
 
 ## LLM 
 - Anthropic API
+
+
+
+## 📈 Project Status
