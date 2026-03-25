@@ -1,5 +1,7 @@
 # GEOME 🗺️
 
+## Project idea
+- 
 
 ## Backend 
 - Python
@@ -12,5 +14,5 @@
 - Anthropic API
 
 
-## Project idea
-- 
+
+## 📈 Project Status
