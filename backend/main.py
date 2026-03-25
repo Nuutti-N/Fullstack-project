@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from sqlmodel import select, SQLModel
-from models import User
+from models import User, UserOut
 from database import engine, get_session
 from users import get_current_user, router as users_router
 

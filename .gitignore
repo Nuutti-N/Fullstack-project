@@ -14,7 +14,7 @@ env.bak/
 venv.bak/
 env/
 alembic.ini
-
+versions
 
 # unit test
 .pytest_cache/
