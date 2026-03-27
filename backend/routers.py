@@ -14,9 +14,9 @@ async def verify_text(user_message: str):
         model="gemini-3-flash-preview",
         contents=user_message
     )
-    return {"AI expalin":  response.text}
+    return {"AI explain":  response.text}
 
 
 @router.get("/Welcome", tags=["Welcome"])
 async def Welcome():
-    return {"Welcome to everyone"}
+    return {"message": "Welcome to everyone"}
