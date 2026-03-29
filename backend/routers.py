@@ -1,11 +1,16 @@
 from google import genai
-from fastapi import FastAPI, HTTPException, APIRouter
+from fastapi import HTTPException, APIRouter
 import os
 from dotenv import load_dotenv
 load_dotenv()
 
 router = APIRouter()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+
+@router.get("/Welcome", tags=["Welcome"])
+async def Welcome():
+    return {"message": "Welcome to everyone"}
 
 
 @router.post("/chat", tags=["Verify"])
@@ -17,6 +22,5 @@ async def verify_text(user_message: str):
     return {"AI explain":  response.text}
 
 
-@router.get("/Welcome", tags=["Welcome"])
-async def Welcome():
-    return {"message": "Welcome to everyone"}
+@router.post("/chat-fact", tags=["Verify"])
+async def verify_fact(claim: str):
