@@ -9,6 +9,7 @@
 
 ## Frontend 
 - React
+- I dont have any experience to react yet, because I started to backend three months ago, but I will handle so fast it. 
 
 ## LLM (Large Language Models)
 - Anthropic API
