@@ -24,3 +24,17 @@ async def verify_text(user_message: str):
 
 @router.post("/chat-fact", tags=["Verify"])
 async def verify_fact(claim: str):
+    prompt = f"Is this statement true or false? {claim}\n\nRespond with only one word: True, False, or Unclear. Nothing else."
+
+    response = client.models.generate_content(
+        model="gemini-3-flash-preview",
+        contents=prompt
+    )
+
+    results = response.text.strip().upper()
+
+    return {
+        "claim": claim,
+        "is_true": results == True,
+        "status": results
+    }
