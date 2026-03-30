@@ -1,5 +1,7 @@
 from google import genai
-from fastapi import HTTPException, APIRouter
+from supabase_client import supabase
+from users import get_current_user
+from fastapi import FastAPI, HTTPException, APIRouter, Depends
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -23,7 +25,7 @@ async def verify_text(user_message: str):
 
 
 @router.post("/chat-fact", tags=["Verify"])
-async def verify_fact(claim: str):
+async def verify_fact(claim: str, current_user=Depends(get_current_user)):
     prompt = f"Is this statement true or false? {claim}\n\nRespond with only one word: True, False, or Unclear. Nothing else."
 
     response = client.models.generate_content(
@@ -32,6 +34,12 @@ async def verify_fact(claim: str):
     )
 
     results = response.text.strip().upper()
+
+    supabase.table("fact_checks").insert({
+        "user_id": current_user.id,
+        "claim": claim,
+        "answer": results
+    }).execute()
 
     return {
         "claim": claim,
