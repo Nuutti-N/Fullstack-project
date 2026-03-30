@@ -48,8 +48,15 @@ async def verify_fact(claim: str, current_user=Depends(get_current_user)):
     }
 
 
-@router.get("/my-facts", tags=["verify"])
+@router.get("/my_facts", tags=["Verify"])
 async def get_my_facts(current_user=Depends(get_current_user)):
     data = supabase.table("fact_checks").select(
         "*").eq("user_id", current_user.id).execute()
     return data.data
+
+
+@router.delete("/my_facts/{fact_id}", tags=["Verify"])
+async def delete_my_facts(fact_id: int, current_user=Depends(get_current_user)):
+    data = supabase.table("fact_checks").delete().eq(
+        "id", fact_id).eq("user_id", current_user.id).execute()
+    return {"deleted": True}
