@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from sqlmodel import select, SQLModel
-from models import User, UserOut
-from database import engine, get_session
-from users import get_current_user, router as users_router
-from routers import router as routers
+from backend.models import User, UserOut
+from backend.database import engine, get_session
+from backend.users import get_current_user, router as users_router
+from backend.routers import router as routers
 
 app = FastAPI()
 app.include_router(users_router)

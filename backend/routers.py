@@ -1,6 +1,6 @@
 from google import genai
-from supabase_client import supabase
-from users import get_current_user
+from backend.supabase_client import supabase
+from backend.users import get_current_user
 from fastapi import FastAPI, HTTPException, APIRouter, Depends
 import os
 from dotenv import load_dotenv

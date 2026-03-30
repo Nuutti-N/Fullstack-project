@@ -4,8 +4,8 @@ from sqlmodel import Session, select
 from pydantic import ValidationError
 from datetime import datetime, UTC
 from jose import jwt, JWTError
-from database import engine
-from models import (
+from backend.database import engine
+from backend.models import (
     UserOut,
     UserAuth,
     User,
@@ -13,7 +13,7 @@ from models import (
     TokenPayLoad,
     SystemUser
 )
-from utils import (
+from backend.utils import (
     hash_password,
     verify_password,
     create_access_token,
