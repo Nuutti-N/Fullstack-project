@@ -46,3 +46,10 @@ async def verify_fact(claim: str, current_user=Depends(get_current_user)):
         "is_true": results == True,
         "status": results
     }
+
+
+@router.get("/my-facts", tags=["verify"])
+async def get_my_facts(current_user=Depends(get_current_user)):
+    data = supabase.table("fact_checks").select(
+        "*").eq("user_id", current_user.id).execute()
+    return data.data
