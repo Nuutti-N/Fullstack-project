@@ -55,7 +55,7 @@ async def get_my_facts(current_user=Depends(get_current_user)):
     return data.data
 
 
-@router.delete("/my_facts/{fact_id}", tags=["Verify"])
+@router.delete("/delete_history/{fact_id}", tags=["Verify"])
 async def delete_my_facts(fact_id: int, current_user=Depends(get_current_user)):
     try:
         data = supabase.table("fact_checks").delete().eq(
