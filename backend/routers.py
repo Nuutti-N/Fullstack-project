@@ -1,7 +1,7 @@
 from google import genai
 from backend.supabase_client import supabase
 from backend.users import get_current_user
-from fastapi import FastAPI, HTTPException, APIRouter, Depends
+from fastapi import FastAPI, HTTPException, APIRouter, Depends, status
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -17,11 +17,14 @@ async def Welcome():
 
 @router.post("/chat", tags=["Verify"])
 async def verify_text(user_message: str, current_user=Depends(get_current_user)):
-    response = client.models.generate_content(
-        model="gemini-3-flash-preview",
-        contents=user_message
-    )
-    return {"AI explain":  response.text}
+    try:
+        response = client.models.generate_content(
+            model="gemini-3-flash-preview",
+            contents=user_message
+        )
+        return {"AI explain":  response.text}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.post("/chat-fact", tags=["Verify"])
@@ -48,6 +51,7 @@ async def verify_fact(claim: str, current_user=Depends(get_current_user)):
             "status": results
         }
     except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/History", tags=["Verify"])
@@ -78,11 +82,13 @@ async def delete_my_facts(fact_id: int, current_user=Depends(get_current_user)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.delete("/delete_all_history/{fact_id}", tags=["Verify"])
-async def delet_all_facts(fact_id: int, current_user=Depends(get_current_user)):
+@router.delete("/delete_all_history/", tags=["Verify"])
+async def delet_all_facts(current_user=Depends(get_current_user)):
     try:
-        data = supabase.table("fact_checks").delete().eq("id", fact_id).eq(
+        data = supabase.table("fact_checks").delete().eq(
             "user_id", current_user.id).execute()
+        if not data.data:
+            raise HTTPException(status_code=404, detail="History not found")
         return {"deleted": len(data.data)}
     except HTTPException:
         raise
