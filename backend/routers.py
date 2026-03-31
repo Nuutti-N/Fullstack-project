@@ -26,33 +26,42 @@ async def verify_text(user_message: str, current_user=Depends(get_current_user))
 
 @router.post("/chat-fact", tags=["Verify"])
 async def verify_fact(claim: str, current_user=Depends(get_current_user)):
-    prompt = f"Is this statement true or false? {claim}\n\nRespond with only one word: True, False, or Unclear. Nothing else."
+    try:
+        prompt = f"Is this statement true or false? {claim}\n\nRespond with only one word: True, False, or Unclear. Nothing else."
 
-    response = client.models.generate_content(
-        model="gemini-3-flash-preview",
-        contents=prompt
-    )
+        response = client.models.generate_content(
+            model="gemini-3-flash-preview",
+            contents=prompt
+        )
 
-    results = response.text.strip().upper()
+        results = response.text.strip().upper()
 
-    supabase.table("fact_checks").insert({
-        "user_id": current_user.id,
-        "claim": claim,
-        "answer": results
-    }).execute()
+        supabase.table("fact_checks").insert({
+            "user_id": current_user.id,
+            "claim": claim,
+            "answer": results
+        }).execute()
 
-    return {
-        "claim": claim,
-        "is_true": results == "TRUE",
-        "status": results
-    }
+        return {
+            "claim": claim,
+            "is_true": results == "TRUE",
+            "status": results
+        }
+    except Exception as e:
 
 
 @router.get("/History", tags=["Verify"])
 async def get_my_facts(current_user=Depends(get_current_user)):
-    data = supabase.table("fact_checks").select(
-        "*").eq("user_id", current_user.id).execute()
-    return data.data
+    try:
+        data = supabase.table("fact_checks").select(
+            "*").eq("user_id", current_user.id).execute()
+        if not data.data:
+            raise HTTPException(status_code=404, detail="History not found")
+        return data.data
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.delete("/delete_history/{fact_id}", tags=["Verify"])
