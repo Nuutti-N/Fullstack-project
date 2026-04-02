@@ -1,6 +1,6 @@
 from jose import jwt
 from typing import Union, Any
-from datetime import datetime, timedelta, UTC
+from datetime import datetime, timedelta, timezone
 from passlib.context import CryptContext
 import os
 from dotenv import load_dotenv
@@ -28,11 +28,11 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:  # When 
 def create_access_token(subject: Union[str, Any], expires_delta: int = None):
     if expires_delta is not None:
         # UTC is little bit risk, because its work only 3.11 up versions. I recommend use timezone.utc, but risk to risk
-        expires_delta = datetime.now(UTC) + expires_delta
+        expires_delta = datetime.now(timezone.utc) + expires_delta
     else:
         # UTC is little bit risk, because its work only 3.11 up versions. I recommend use timezone.utc, but risk to risk
         expires_delta = datetime.now(
-            UTC) + timedelta(minutes=access_token_expire_minutes)
+            timezone.utc) + timedelta(minutes=access_token_expire_minutes)
     to_encode = {"exp": expires_delta, "sub": str(subject)}
     encoded_jwt = jwt.encode(to_encode, jwt_key, algorithm)
     return encoded_jwt
@@ -43,9 +43,10 @@ def create_access_token(subject: Union[str, Any], expires_delta: int = None):
 def create_refresh_token(subject: Union[str, Any], expires_delta: int = None):
     if expires_delta is not None:
         # UTC is little bit risk, because its work only 3.11 up versions. I recommend use timezone.utc, but risk to risk
-        expires_delta = datetime.now(UTC) + expires_delta
+        expires_delta = datetime.now(timezone.utc) + expires_delta
     else:
         # UTC is little bit risk, because its work only 3.11 up versions. I recommend use timezone.utc, but risk to risk
-        expires_delta = datetime.now(UTC) + timedelta(minutes=refresh_token)
+        expires_delta = datetime.now(
+            timezone.utc) + timedelta(minutes=refresh_token)
     to_encode = {"exp": expires_delta, "sub": str(subject)}
     return jwt.encode(to_encode, jwt_refresh_key, algorithm)
