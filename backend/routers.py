@@ -12,7 +12,7 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 @router.get("/Welcome", tags=["Welcome"])
 async def Welcome():
-    return {"message": "Welcome to everyone"}
+    return {"message": "Welcome to the AI Agent"}
 
 
 @router.post("/chat", tags=["Verify"])
