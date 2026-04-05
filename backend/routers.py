@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 router = APIRouter()
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+client = genai.Client(api_key=os.getenv("gemini_api_key"))
 
 
 @router.get("/Welcome", tags=["Welcome"])

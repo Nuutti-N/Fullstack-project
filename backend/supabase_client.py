@@ -3,8 +3,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-Supabase_url = os.getenv("Supabase_url")
-Supabase_key = os.getenv("Supabase_key")
+supabase_url = os.getenv("supabase_url")
+supabase_key = os.getenv("supabase_key")
 
 
-supabase: Client = create_client(Supabase_url, Supabase_key)
+supabase: Client = create_client(supabase_url, supabase_key)
