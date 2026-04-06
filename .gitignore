@@ -28,3 +28,6 @@ build/
 # IDE and editor files 
 .idea/
 .vscode/
+
+# LOGS
+*.log

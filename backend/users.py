@@ -103,4 +103,5 @@ async def get_current_user(token: str = Depends(reuseable_oauth), session: Sessi
 
 @router.get("/Your", summary="Get details of currently logged in user", response_model=UserOut, tags=["Login information"])
 async def get_mer(user: User = Depends(get_current_user)):
+    logger.info(f"User data: {user}")
     return user
