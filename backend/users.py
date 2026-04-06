@@ -38,14 +38,20 @@ async def register(data: UserAuth, session: Session = Depends(get_session)):
         statement = select(User).where(User.username == data.username)
         existing_user = session.exec(statement).first()
         if existing_user:
+            logger.warning(
+                f"Sign up attempt with existing username: {data.username}")
             raise HTTPException(status_code=400, detail="Username exists")
         hashed_pass = hash_password(data.password)
         new_user = User(username=data.username, password=hashed_pass)
         session.add(new_user)
         session.commit()
         session.refresh(new_user)
+        logger.info(f"New user registered: {data.username}")
         return new_user
+    except HTTPException:
+        raise
     except Exception as e:
+        logger.error(f"Error during signup: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -54,11 +60,15 @@ async def Login(form_data: OAuth2PasswordRequestForm = Depends(), session: Sessi
     statement = select(User).where(User.username == form_data.username)
     existing_user = session.exec(statement).first()
     if existing_user is None:
+        logger.warning(
+            f"Failed Login attempt for username: {form_data.username}")
         raise HTTPException(
             status_code=401, detail="Incorrect Username or password")
     if not verify_password(form_data.password, existing_user.password):
+        logger.warning(f"Wrong password for username: {form_data.username}")
         raise HTTPException(
             status_code=401, detail="Incorrect username or password")
+    logger.info(f"User Logged in: {form_data.username}")
     return {
         "access_token": create_access_token(existing_user.username),
         "refresh_token": create_refresh_token(existing_user.username)

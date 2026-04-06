@@ -3,7 +3,7 @@ from backend.supabase_client import supabase
 from backend.users import get_current_user
 from fastapi import HTTPException, APIRouter, Depends, status
 from backend.config import settings
-import logging
+from backend.logger import logger
 
 router = APIRouter()
 client = genai.Client(api_key=settings.gemini_api_key)
@@ -11,6 +11,7 @@ client = genai.Client(api_key=settings.gemini_api_key)
 
 @router.get("/Welcome", tags=["Welcome"])
 async def Welcome():
+    logger.info("Welcome to the AI Agent")
     return {"message": "Welcome to the AI Agent"}
 
 
