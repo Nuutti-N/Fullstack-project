@@ -22,8 +22,10 @@ async def verify_text(user_message: str, current_user=Depends(get_current_user))
             model="gemini-3-flash-preview",
             contents=user_message
         )
+        logger.info(f"AI explain: {user_message}")
         return {"AI explain":  response.text}
     except Exception as e:
+        logger.error(f"Error in the program: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 
