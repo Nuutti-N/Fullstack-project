@@ -27,7 +27,8 @@ async def verify_text(user_message: str, current_user=Depends(get_current_user))
         )
         return {"AI explain":  response.text}
     except Exception as e:
-        logger.error(f"Error in the program: {e}", exc_info=True)
+        logger.error("chat_error user_id=%s error=%s",
+                     current_user.id, e, exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -58,7 +59,8 @@ async def verify_fact(claim: str, current_user=Depends(get_current_user)):
             "status": results
         }
     except Exception as e:
-        logger.error(f"fact checks in error: {e}", exc_info=True)
+        logger.error("fact_chat_error user_id=%s error=%s",
+                     current_user.id, e, exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -71,18 +73,22 @@ async def get_my_facts(current_user=Depends(get_current_user)):
             "history_request user_id=%s items=%s", current_user.id, len(data.data or []))
         return data.data
     except Exception as e:
-        logger.error(f"Problem loading history: {e}", exc_info=True)
+        logger.error("history_check_error user_id=%s error=%s",
+                     current_user.id, e, exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.delete("/delete_history/{fact_id}", tags=["Verify"])
 async def delete_my_facts(fact_id: int, current_user=Depends(get_current_user)):
+    logger.info(
+        "delete_history_unexcpected_response user_id=%s fact_id=%s", current_user.id)
     data = supabase.table("fact_checks").delete().eq(
         "id", fact_id).eq("user_id", current_user.id).execute()
     if data.data is None:
         raise HTTPException(
             status_code=500, detail="Unexpected response from database")
     if data.data == []:
+
         raise HTTPException(status_code=404, detail="no matching history item")
     return {"deleted": True}
 
