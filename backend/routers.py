@@ -67,6 +67,7 @@ async def verify_fact(claim: str, current_user=Depends(get_current_user)):
 @router.get("/History", tags=["Verify"])
 async def get_my_facts(current_user=Depends(get_current_user)):
     try:
+        logger.info("History_check_requested_user user_id=%s", current_user.id)
         data = supabase.table("fact_checks").select(
             "*").eq("user_id", current_user.id).execute()
         logger.info(
@@ -88,7 +89,6 @@ async def delete_my_facts(fact_id: int, current_user=Depends(get_current_user)):
         raise HTTPException(
             status_code=500, detail="Unexpected response from database")
     if data.data == []:
-
         raise HTTPException(status_code=404, detail="no matching history item")
     return {"deleted": True}
 
@@ -96,9 +96,12 @@ async def delete_my_facts(fact_id: int, current_user=Depends(get_current_user)):
 @router.delete("/delete_all_history/", tags=["Verify"])
 async def delet_all_facts(current_user=Depends(get_current_user)):
     try:
+        logger.info("delete_all_history_requestes user_id=%s", current_user.id)
         data = supabase.table("fact_checks").delete().eq(
             "user_id", current_user.id).execute()
         return {"deleted": "All history deleted"}
     except Exception as e:  # If any other error happens, store it in 'e'
         # Send 500 error with the error message
+        logger.error("delete_all_history_error user_id=%s error=%s",
+                     current_user.id, e, exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
