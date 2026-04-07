@@ -10,13 +10,13 @@ router = APIRouter()
 client = genai.Client(api_key=settings.gemini_api_key)
 
 
-@router.get("/welcome", tags=["Welcome"])
+@router.get("/welcome", tags=["welcome"])
 async def Welcome():
     logger.info("Welcome_endpoint_called")
     return {"message": "Welcome to the AI Agent"}
 
 
-@router.post("/chat", tags=["Verify"])
+@router.post("/chat", tags=["verify"])
 async def verify_text(user_message: str, current_user=Depends(get_current_user)):
     try:
         logger.info("chat_request user_id=%s message_len=%s",
@@ -34,7 +34,7 @@ async def verify_text(user_message: str, current_user=Depends(get_current_user))
         raise HTTPException(status_code=500, detail="Internal server error")
 
 
-@router.post("/chat-fact", tags=["Verify"])
+@router.post("/chat-fact", tags=["verify"])
 async def verify_fact(claim: str, current_user=Depends(get_current_user)):
     try:
         logger.info(
@@ -66,7 +66,7 @@ async def verify_fact(claim: str, current_user=Depends(get_current_user)):
         raise HTTPException(status_code=500, detail="Internal server error")
 
 
-@router.get("/History", tags=["Verify"])
+@router.get("/history", tags=["verify"])
 async def get_my_facts(current_user=Depends(get_current_user)):
     try:
         logger.info("History_check_requested_user user_id=%s", current_user.id)
@@ -81,7 +81,7 @@ async def get_my_facts(current_user=Depends(get_current_user)):
         raise HTTPException(status_code=500, detail="Internal server error")
 
 
-@router.delete("/delete_history/{fact_id}", tags=["Verify"])
+@router.delete("/delete_history/{fact_id}", tags=["verify"])
 async def delete_my_facts(fact_id: int, current_user=Depends(get_current_user)):
     try:
         logger.info(

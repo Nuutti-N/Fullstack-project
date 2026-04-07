@@ -32,7 +32,7 @@ def get_session():
         yield session
 
 
-@router.post("/Signup", response_model=UserOut, tags=["Sign up"])
+@router.post("/signup", response_model=UserOut, tags=["sign up"])
 async def register(data: UserAuth, session: Session = Depends(get_session)):
     try:
         statement = select(User).where(User.username == data.username)
@@ -55,7 +55,7 @@ async def register(data: UserAuth, session: Session = Depends(get_session)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.post("/Login", response_model=token, tags=["Login"])
+@router.post("/login", response_model=token, tags=["login"])
 async def Login(form_data: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(get_session)):
     statement = select(User).where(User.username == form_data.username)
     existing_user = session.exec(statement).first()
@@ -74,7 +74,7 @@ async def Login(form_data: OAuth2PasswordRequestForm = Depends(), session: Sessi
         "refresh_token": create_refresh_token(existing_user.username)
     }
 reuseable_oauth = OAuth2PasswordBearer(
-    tokenUrl="/Login",
+    tokenUrl="/login",
     scheme_name="JWT"
 )
 
@@ -101,7 +101,7 @@ async def get_current_user(token: str = Depends(reuseable_oauth), session: Sessi
     return new_user
 
 
-@router.get("/Your", summary="Get details of currently logged in user", response_model=UserOut, tags=["Login information"])
+@router.get("/your", summary="Get details of currently logged in user", response_model=UserOut, tags=["Login information"])
 async def get_me(user: User = Depends(get_current_user)):
     logger.info("User data: username %s | id: %s", user.username, user.id)
     return user
