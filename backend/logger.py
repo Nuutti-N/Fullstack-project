@@ -19,5 +19,6 @@ file_handler = logging.FileHandler("app.log")
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 
-logger.addHandler(console_handler)
-logger.addHandler(file_handler)
+if not logger.handlers:
+    logger.addHandler(console_handler)
+    logger.addHandler(file_handler)

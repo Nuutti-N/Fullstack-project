@@ -51,7 +51,7 @@ async def register(data: UserAuth, session: Session = Depends(get_session)):
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error during signup: {e}", exc_info=True)
+        logger.error(f"Error during signup:", e, exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -102,6 +102,6 @@ async def get_current_user(token: str = Depends(reuseable_oauth), session: Sessi
 
 
 @router.get("/Your", summary="Get details of currently logged in user", response_model=UserOut, tags=["Login information"])
-async def get_mer(user: User = Depends(get_current_user)):
-    logger.info(f"User data: {user}")
+async def get_me(user: User = Depends(get_current_user)):
+    logger.info("User data: username %s | id: %s", user.username, user.id)
     return user
