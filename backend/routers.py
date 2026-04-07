@@ -26,20 +26,23 @@ async def verify_text(user_message: str, current_user=Depends(get_current_user))
         return {"AI explain":  response.text}
     except Exception as e:
         logger.error(f"Error in the program: {e}", exc_info=True)
+        logger.error(f"Error during signup: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.post("/chat-fact", tags=["Verify"])
 async def verify_fact(claim: str, current_user=Depends(get_current_user)):
     try:
+        logger.info(
+            f"Fact check requested by user {current_user.id}: {claim[:50]}")
         prompt = f"Is this statement true or false? {claim}\n\nRespond with only one word: True, False, or Unclear. Nothing else."
 
         response = client.models.generate_content(
             model="gemini-3-flash-preview",
             contents=prompt
         )
-
         results = response.text.strip().upper()
+        logger.info(f"Fact check result for user {current_user.id}: {results}")
 
         supabase.table("fact_checks").insert({
             "user_id": current_user.id,
@@ -53,6 +56,7 @@ async def verify_fact(claim: str, current_user=Depends(get_current_user)):
             "status": results
         }
     except Exception as e:
+        logger.error(f"fact checks in error: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 
