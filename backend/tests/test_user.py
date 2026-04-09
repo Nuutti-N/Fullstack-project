@@ -31,6 +31,20 @@ def test_your_requires_token(client):
     assert response.status_code == 401
     assert response.json()["detail"] == "Not authenticated"
 
-# def test_your(client):
-#     response = client.get("/your", data={"username": "testuser", "password": "testpass"})
-#     assert response.status_code == 200
+
+def test_works_with_token(client):
+    # sign up first
+    response = client.post(
+        "/signup", json={"username": "testuser", "password": "testpass"})
+    assert response.status_code == 400
+    # then login
+    login = client.post(
+        "/login", data={"username": "testuser", "password": "testpass"})
+    assert login.status_code == 200
+    token = login.json()["access_token"]
+    response = client.get(
+        "/your", headers={"Authorization": f"Bearer {token}"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["username"] == "testuser"
+    assert isinstance(data["id"], int)
