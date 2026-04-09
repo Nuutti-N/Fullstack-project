@@ -24,3 +24,13 @@ def test_login_fail(client):
         "/login", data={"username": "us", "password": "time12"})
     assert response.status_code == 401
     assert response.json()["detail"] == "Incorrect Username or password"
+
+
+def test_your_requires_token(client):
+    response = client.get("/your")
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Not authenticated"
+
+# def test_your(client):
+#     response = client.get("/your", data={"username": "testuser", "password": "testpass"})
+#     assert response.status_code == 200
