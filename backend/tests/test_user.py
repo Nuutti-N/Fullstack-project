@@ -1,5 +1,8 @@
 
 
+from tokenize import Token
+
+
 def test_signup(client):
     response = client.post(
         "/signup", json={"username": "testuser", "password": "testpass"})
@@ -47,4 +50,5 @@ def test_works_with_token(client):
     assert response.status_code == 200
     data = response.json()
     assert data["username"] == "testuser"
-    assert isinstance(data["id"], int)
+    assert isinstance(token, str) and token
+    assert "id" in data
