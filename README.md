@@ -15,8 +15,8 @@
 - LLM | Gemini (test only), however if you want to test something, firstly I recommend take free, because, you dont really know is this worht it for your.
 - Database | Supabase, and use Postgresql
 - Deploy | Railway | Even if you have backend and frontend, I recommend to deploy both to same place. 
-  
-## Database (supabase)
+
+
 
 ## Tools where I test my api (postman)
 
