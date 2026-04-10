@@ -1,9 +1,7 @@
-
+import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from dotenv import load_dotenv
 load_dotenv()
-
-# When my app starts: look in .env
 
 
 class Settings(BaseSettings):
