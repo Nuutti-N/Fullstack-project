@@ -12,11 +12,9 @@
 ## Tech stack
 - Backend | Fastapi
 - Frontend | React
-- LLM (Large Language Models)
-- Anthropic API
-- I use gemini, because its free and, I will test firstly what I need, and then I check, if I want choice something else LLM. 
-- When you use free LLM disadvantage is sometimes you get limit and you will wait, when limit is over.
-
+- LLM | Gemini (test only), however if you want to test something, firstly I recommend take free, because, you dont really know is this worht it for your.
+- Database | Supabase, and use Postgresql
+  
 ## Database (supabase)
 
 ## Tools where I test my api (postman)
