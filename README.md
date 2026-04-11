@@ -54,11 +54,9 @@ Layer     | Technology          | Notes                              |
 
 - The API will be running at http://localhost:8000
 
-## Deployment 
-
 
 ## Deployment 
-> Steps
+Steps
 
 1. Push your code to Github
 2. Connect your repo to https://railway.com 
