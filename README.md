@@ -57,7 +57,13 @@ Layer     | Technology          | Notes                              |
 ## Deployment 
 
 
-## Deployment
+## Deployment 
+> Steps
+
+1. Push your code to Github
+2. Connect your repo to https://railway.com 
+
+
 - Setup Railway account and link to GitHub repository.
 - Create environment variables for your backend: `DATABASE_URL`, `GEMINI_API_KEY`, etc.
 - Deploy using the Railway dashboard.
