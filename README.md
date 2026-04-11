@@ -32,6 +32,11 @@
 - Database URL in supabase
 - Supabase project url and key. you have two choices anon key or service role key. if you have enabled RLS then use anon key, otherwise use service role key.
 
+## Getting started
+- Clone the repository
+- git clone https://github.com/Nuutti-N/Fullstack-project.git
+
+
 ## 📈 Project Status
 - MVP is useful and working. Text input to trust verdict is fully functional and deployed.
 
