@@ -20,7 +20,7 @@
 Layer     | Technology          | Notes                              |
 |-----------|---------------------|------------------------------------|
 | Backend   | FastAPI             | Async endpoints                    |
-| Frontend  | React               |  Coming later                                 |
+| Frontend  | React               | Coming later                                 |
 | LLM       | Gemini              | Used for content analysis (first take free version for test)       |
 | Database  | Supabase (Postgres) | User data and history/analysis storage     |
 | Deploy    | Railway             | Both backend and frontend deployed together |
@@ -80,7 +80,7 @@ Steps
 
 ## 📈 Project Status
 - MVP is useful and working. Text input to trust verdict is fully functional and deployed.
-
+- 
 - Current focus: Improving documentation, fixing bugs, and making the project easier to understand for contributions and potential collaborators.
 - I will add AI Agents soon!
 
