@@ -33,6 +33,25 @@ Layer     | Technology          | Notes                              |
 - Database URL in supabase
 - Supabase project url and key. you have two choices anon key or service role key. if you have enabled RLS then use anon key, otherwise use service role key.
 
+
+## Environment variables
+
+ENV FILE 
+
+Gemini 
+Gemini_API_KEY = "your_gemini_api_key_here"
+
+Supabase
+
+DATABASE_URL=your_supabase_database_url
+SUPABASE_URL="https://your-project-ref.supabase.co"
+SUPABASE_KEY="your_supabase_key_here"
+
+Which supabase key should I use?
+
+- Use the anon key if you have RLS enabled on your tables
+- Use the service role key only if RLS is disabled, this key bypasses all security policies, so handle it carefully.
+
 ## Getting started
 - Clone the repository
 `git clone https://github.com/Nuutti-N/Fullstack-project.git`
