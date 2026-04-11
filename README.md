@@ -40,6 +40,7 @@ ENV FILE
 
 Gemini 
 Gemini_API_KEY = "your_gemini_api_key_here"
+or whatevr LLM you use. 
 
 Supabase
 
