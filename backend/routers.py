@@ -64,6 +64,7 @@ async def verify_fact(text: str, current_user=Depends(get_current_user)):
                     current_user.id, data["verdict"])
 
         supabase.table("fact_checks").insert({
+            "username": current_user,
             "user_id": current_user.id,
             "claim": text,
             "answer": data["verdict"]
