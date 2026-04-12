@@ -5,6 +5,7 @@ from backend.users import get_current_user
 from fastapi import HTTPException, APIRouter, Depends, status
 from backend.config import settings
 from backend.logger import logger
+import json
 
 router = APIRouter()
 client = genai.Client(api_key=settings.gemini_api_key)
@@ -34,13 +35,25 @@ async def verify_text(user_message: str, current_user=Depends(get_current_user))
         raise HTTPException(status_code=500, detail="Internal server error")
 
 
-@router.post("/chat-fact", tags=["verify"])
-async def verify_fact(claim: str, current_user=Depends(get_current_user)):
+@router.post("/analyze", tags=["verify"])
+async def verify_fact(text: str, current_user=Depends(get_current_user)):
     try:
         logger.info(
-            f"Fact check requested by user {current_user.id}: {claim[:50]}")
-        prompt = f"Is this statement true or false? {claim}\n\nRespond with only one word: True, False, or Unclear. Nothing else."
-
+            f"Fact check requested by user {current_user.id}: {text[:50]}")
+        # prompt = f"Is this statement true or false? {text}\n\nRespond with only one word: True, False, or Unclear. Nothing else."
+        prompt = f"""You are a AI generated character, and tell people, can their use AI text/code. Your task to find potentially misleading, outdated or harmful content.\n\n Respond how many percent possibility to use ai generated text or code, and give for me information where is the propably mistakes and what is good.
+        Analyze this text:
+        {text}
+        
+        Return your response as Json only, no other text, with exacty these fields:
+        {{
+            "trust_score": <number 0-100>,
+            "verdict": <can use|let's explore more|do not use>,
+            "risks": "<risk, risk, risk">,
+            "pros": "<pros, pros, pros>",
+            "recommend": "<what the user should do>",
+        }}
+        """
         response = client.models.generate_content(
             model="gemini-3-flash-preview",
             contents=prompt
@@ -51,14 +64,17 @@ async def verify_fact(claim: str, current_user=Depends(get_current_user)):
 
         supabase.table("fact_checks").insert({
             "user_id": current_user.id,
-            "claim": claim,
+            "claim": text,
             "answer": results
         }).execute()
-
+        data = json.loads(response.text.strip())
         return {
-            "claim": claim,
-            "is_true": results == "TRUE",
-            "status": results
+            "claim": text,
+            "score": data["trust_score"],
+            "verdict": data["verdict"],
+            "risks": data["risks"],
+            "pros": data["pros"],
+            "recommend": data["recommend"],
         }
     except Exception as e:
         logger.error("fact_chat_error user_id=%s error=%s",
