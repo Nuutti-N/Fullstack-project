@@ -40,7 +40,6 @@ async def verify_fact(text: str, current_user=Depends(get_current_user)):
     try:
         logger.info(
             f"Fact check requested by user {current_user.id}: {text[:50]}")
-        # prompt = f"Is this statement true or false? {text}\n\nRespond with only one word: True, False, or Unclear. Nothing else."
         prompt = f"""You are a AI generated character, and tell people, can their use AI text/code. Your task to find potentially misleading, outdated or harmful content.\n\n Respond how many percent possibility to use ai generated text or code, and give for me information where is the propably mistakes and what is good.
         Analyze this text:
         {text}
@@ -64,7 +63,6 @@ async def verify_fact(text: str, current_user=Depends(get_current_user)):
                     current_user.id, data["verdict"])
 
         supabase.table("fact_checks").insert({
-            "username": current_user,
             "user_id": current_user.id,
             "claim": text,
             "answer": data["verdict"]
