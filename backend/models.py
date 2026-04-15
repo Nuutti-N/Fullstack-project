@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field as PydanticField
 from sqlmodel import SQLModel, Field
 from typing import Optional
 
@@ -10,8 +10,9 @@ class User(SQLModel, table=True):
 
 
 class UserAuth(BaseModel):
-    username: str
-    password: str
+    username: str = PydanticField(
+        min_length=3, max_length=30, pattern=r"^\w+$")
+    password: str = PydanticField(min_length=8, max_length=128)
 
 
 class UserOut(BaseModel):

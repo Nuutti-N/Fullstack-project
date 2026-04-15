@@ -2,7 +2,7 @@
 from google import genai
 from backend.supabase_client import supabase
 from backend.users import get_current_user
-from fastapi import HTTPException, APIRouter, Depends, status, Request
+from fastapi import HTTPException, APIRouter, Depends, status, Request, Query, Path
 from backend.config import settings
 from backend.logger import logger
 from backend.rating_limiter import limiter
@@ -19,7 +19,7 @@ async def Welcome():
 
 
 @router.post("/chat", tags=["verify"])
-async def verify_text(user_message: str, current_user=Depends(get_current_user)):
+async def verify_text(user_message: str = Query(min_length=1, max_length=2000), current_user=Depends(get_current_user)):
     try:
         logger.info("chat_request user_id=%s message_len=%s",
                     current_user.id, len(user_message))
@@ -38,7 +38,7 @@ async def verify_text(user_message: str, current_user=Depends(get_current_user))
 
 @router.post("/analyze", tags=["verify"])
 @limiter.limit("5/minute")
-async def verify_fact(request: Request, text: str, current_user=Depends(get_current_user)):
+async def verify_fact(request: Request, text: str = Query(min_length=5, max_length=2000), current_user=Depends(get_current_user)):
     try:
         logger.info(
             f"Fact check requested by user {current_user.id}: {text[:50]}")
@@ -100,7 +100,7 @@ async def get_my_facts(current_user=Depends(get_current_user)):
 
 
 @router.delete("/delete_history/{fact_id}", tags=["verify"])
-async def delete_my_facts(fact_id: int, current_user=Depends(get_current_user)):
+async def delete_my_facts(fact_id: int = Path(ge=1), current_user=Depends(get_current_user)):
     try:
         logger.info(
             "delete_history_unexcpected_response user_id=%s fact_id=%s", current_user.id, fact_id)
