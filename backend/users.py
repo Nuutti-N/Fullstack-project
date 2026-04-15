@@ -4,7 +4,7 @@ from sqlmodel import Session, select
 from pydantic import ValidationError
 from datetime import datetime, timezone
 from jose import jwt, JWTError
-from backend.database import engine
+from backend.database import get_session
 from backend.models import (
     UserOut,
     UserAuth,
@@ -25,11 +25,6 @@ from backend.logger import logger
 
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-
-def get_session():
-    with Session(engine) as session:
-        yield session
 
 
 @router.post("/signup", response_model=UserOut, tags=["sign up"])
