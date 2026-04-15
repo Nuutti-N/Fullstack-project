@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field as PydanticField
 from sqlmodel import SQLModel, Field
-from typing import Optional
 
 
 class User(SQLModel, table=True):

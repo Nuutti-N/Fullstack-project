@@ -2,7 +2,7 @@
 from google import genai
 from backend.supabase_client import supabase
 from backend.users import get_current_user
-from fastapi import HTTPException, APIRouter, Depends, status, Request, Query, Path
+from fastapi import HTTPException, APIRouter, Depends, Request, Query, Path
 from backend.config import settings
 from backend.logger import logger
 from backend.rating_limiter import limiter
