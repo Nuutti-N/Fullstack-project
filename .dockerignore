@@ -3,6 +3,7 @@
 __pycache__/
 *.pyc 
 *.pyo
+*.pyd
 
 # Environments 
 
@@ -10,7 +11,28 @@ __pycache__/
 .venv
 env/
 venv/
-ENV/
 env.bak/
 venv.bak/
-env/
+
+
+
+# Logs
+
+*.log  
+
+# GIT
+.git/
+.gitignore
+
+# Frontend 
+Frontend/
+
+
+# IDE and editor files 
+.idea/
+.vscode/
+
+# Docs
+Procfile
+docker-compose.yml
+dockerfile
