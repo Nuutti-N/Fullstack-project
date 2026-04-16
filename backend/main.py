@@ -29,8 +29,8 @@ app.add_middleware(
         "http://mydomainsoon.com",
     ],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
+    allow_methods=["GET", "DELETE", "POST"],
+    allow_headers=["Content-Type", "Authorization"]
 )
 
 app.include_router(users_router)
