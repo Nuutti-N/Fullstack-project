@@ -69,13 +69,13 @@ async def Login(form_data: OAuth2PasswordRequestForm = Depends(), session: Sessi
         "access_token": create_access_token(existing_user.username),
         "refresh_token": create_refresh_token(existing_user.username)
     }
-reuseable_oauth = OAuth2PasswordBearer(
+reusable_oauth = OAuth2PasswordBearer(
     tokenUrl="/login",
     scheme_name="JWT"
 )
 
 
-async def get_current_user(token: str = Depends(reuseable_oauth), session: Session = Depends(get_session)) -> SystemUser:
+async def get_current_user(token: str = Depends(reusable_oauth), session: Session = Depends(get_session)) -> SystemUser:
     try:
         payload = jwt.decode(
             token, jwt_key, algorithms=[algorithm]
