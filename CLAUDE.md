@@ -62,7 +62,7 @@ MVP/
 │   ├── main.py             # FastAPI app, CORS, rate-limit error handler, router registration
 │   ├── config.py           # Pydantic Settings — loads .env, fails fast if any var missing
 │   ├── models.py           # SQLModel table: User; Pydantic schemas: UserAuth, UserOut, Token, TokenPayload, SystemUser
-│   ├── database.py         # SQLAlchemy engine (echo=True — logs all SQL); get_session() dependency
+│   ├── database.py         # SQLAlchemy engine (echo=False); get_session() dependency
 │   ├── users.py            # /signup, /login, /your, /refresh endpoints + get_current_user() JWT dependency
 │   ├── routers.py          # /welcome, /chat, /analyze, /history, /delete_history/* endpoints
 │   ├── utils.py            # bcrypt hashing, JWT access/refresh token creation (30 min / 7 days)
@@ -70,7 +70,15 @@ MVP/
 │   ├── rating_limiter.py   # slowapi Limiter instance (key: remote IP)
 │   ├── logger.py           # Shared logger — INFO to console, DEBUG to app.log file
 │   └── alembic/            # DB migrations (targets SQLModel metadata only)
-└── Frontend/               # React frontend — not yet implemented
+└── Frontend/
+    └── frontend/           # Vite + React app (in progress)
+        ├── src/
+        │   ├── pages/      # Login.jsx, Analyze.jsx, History.jsx (not yet created)
+        │   ├── components/ # PrivateRoute.jsx (not yet created)
+        │   ├── api/        # client.js — axios instance with baseURL (not yet created)
+        │   ├── App.jsx     # Router setup (in progress)
+        │   └── main.jsx    # Entry point
+        └── package.json
 ```
 
 ### Request flow for `/analyze`
