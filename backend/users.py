@@ -66,8 +66,8 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(), session: Sessi
             status_code=401, detail="Incorrect username or password")
     logger.info(f"User Logged in: {form_data.username}")
     return {
-        "access_token": create_access_token(existing_user.username),
-        "refresh_token": create_refresh_token(existing_user.username)
+        "access_token": create_access_token(existing_user.id),
+        "refresh_token": create_refresh_token(existing_user.id)
     }
 reusable_oauth = OAuth2PasswordBearer(
     tokenUrl="/login",
@@ -92,7 +92,7 @@ async def get_current_user(token: str = Depends(reusable_oauth), session: Sessio
             "WWW-Authenticate": "Bearer"
         })
 
-    statement = select(User).where(User.username == token_data.sub)
+    statement = select(User).where(User.id == int(token_data.sub))
     new_user = session.exec(statement).first()
     if new_user is None:
         raise HTTPException(status_code=400, detail="Could not find user")
@@ -120,11 +120,11 @@ async def refresh(data: RefreshRequest, session: Session = Depends(get_session))
     except (jwt.JWTError, ValidationError):
         raise HTTPException(
             status_code=403, detail="Could not validate credentials")
-    statement = select(User).where(User.username == token_data.sub)
+    statement = select(User).where(User.id == int(token_data.sub))
     new_user = session.exec(statement).first()
     if new_user is None:
         raise HTTPException(status_code=400, detail="Could not find user")
     return {
-        "access_token": create_access_token(new_user.username),
-        "refresh_token": create_refresh_token(new_user.username)
+        "access_token": create_access_token(new_user.id),
+        "refresh_token": create_refresh_token(new_user.id)
     }
