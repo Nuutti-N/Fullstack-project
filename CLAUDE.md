@@ -77,9 +77,9 @@ MVP/
 
 1. Rate limiter checks `5/minute` per IP.
 2. `get_current_user()` decodes the Bearer JWT and resolves to a `User` row from Postgres.
-3. A structured prompt is sent to Gemini asking for JSON with `trust_score`, `verdict`, `risks`, `pros`, `recommend`.
+3. Instructions are sent via `system_instruction`, user text via `contents` — separated to prevent prompt injection.
 4. The raw response is parsed with `json.loads` after stripping markdown fences — Gemini sometimes wraps JSON in ` ```json ``` `.
-5. Result is inserted into Supabase `fact_checks` table (`user_id`, `claim`, `answer` only — full analysis is not persisted).
+5. Result is inserted into Supabase `fact_checks` table with all fields: `user_id`, `claim`, `trust_score`, `verdict`, `risks`, `pros`, `recommend`.
 6. Full analysis object is returned to the caller.
 
 ### Auth flow
@@ -88,7 +88,7 @@ MVP/
 - `POST /login` — verifies bcrypt, returns `{access_token, refresh_token}` (JWT HS256).
 - `POST /refresh` — validates refresh token, issues a new token pair.
 - All protected endpoints use `get_current_user()` as a FastAPI `Depends`, which decodes the Bearer JWT against `JWT_KEY`.
-- JWT `sub` field stores the **username** (not user ID).
+- JWT `sub` field stores the **user ID** (integer, converted to string in token).
 
 ### Dual database usage
 
@@ -112,3 +112,22 @@ web: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
 ```
 
 `echo=True` in `database.py` logs every SQL statement — disable this before deploying to production.
+
+## Known Issues & Gotchas
+
+These are non-obvious problems that require reading multiple files to discover. Fix these before going to production.
+
+**Security**
+- ~~Prompt injection~~ — fixed. `system_instruction` separates your rules from user content.
+- `allow_methods=["*"]` and `allow_headers=["*"]` in CORS are too permissive. Restrict to the actual methods and headers the frontend uses.
+
+**Correctness**
+- ~~JWT `sub` stored username~~ — fixed. Now stores user ID as string, cast to `int` on lookup.
+
+**Tests**
+- Supabase is not mocked. Any test that calls `/analyze`, `/history`, or `/delete_history` makes a real HTTP request to Supabase. Tests will fail without a live Supabase instance and valid credentials in the environment.
+- Test coverage is thin. Only the `/welcome` endpoint is tested. The auth flow, `/analyze`, `/history`, and delete endpoints have no tests.
+
+**Production Readiness**
+- `echo=True` in `database.py` prints every SQL query to stdout. Remove before deploying.
+- No pagination on `/history`. A user with many records will cause a full table scan and a large response payload. Add `limit` and `offset` query params.
