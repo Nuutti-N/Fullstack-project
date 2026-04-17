@@ -118,11 +118,11 @@ web: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
 These are non-obvious problems that require reading multiple files to discover. Fix these before going to production.
 
 **Security**
-- ~~Prompt injection~~ — fixed. `system_instruction` separates your rules from user content.
-- `allow_methods=["*"]` and `allow_headers=["*"]` in CORS are too permissive. Restrict to the actual methods and headers the frontend uses.
+- ~~Prompt injection~~ — fixed. `system_instruction` separates your rules from user content. ✅ 
+- `allow_methods=["*"]` and `allow_headers=["*"]` in CORS are too permissive. Restrict to the actual methods and headers the frontend uses. ✅ 
 
 **Correctness**
-- ~~JWT `sub` stored username~~ — fixed. Now stores user ID as string, cast to `int` on lookup.
+- ~~JWT `sub` stored username~~ — fixed. Now stores user ID as string, cast to `int` on lookup. ✅
 
 **Tests**
 - Supabase is not mocked. Any test that calls `/analyze`, `/history`, or `/delete_history` makes a real HTTP request to Supabase. Tests will fail without a live Supabase instance and valid credentials in the environment.
