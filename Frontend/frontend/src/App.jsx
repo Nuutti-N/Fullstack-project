@@ -1,5 +1,13 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+
+
 function App() {
-  return <h1>Trust AI</h1>
+  return (
+    <BrowserRouter>
+      <Routes>
+
+      </Routes>
+    </BrowserRouter>)
 }
 
 export default App

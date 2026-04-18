@@ -75,8 +75,8 @@ MVP/
         ├── src/
         │   ├── pages/      # Login.jsx, Analyze.jsx, History.jsx (not yet created)
         │   ├── components/ # PrivateRoute.jsx (not yet created)
-        │   ├── api/        # client.js — axios instance with baseURL (not yet created)
-        │   ├── App.jsx     # Router setup (in progress)
+        │   ├── api/        # client.js — DONE. axios instance with baseURL + token interceptor
+        │   ├── App.jsx     # Router setup — IN PROGRESS. BrowserRouter+Routes wrapper done, next: add 3 Route entries for /login /analyze /history, then create pages/ and PrivateRoute
         │   └── main.jsx    # Entry point
         └── package.json
 ```
