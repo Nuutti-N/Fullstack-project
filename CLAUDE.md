@@ -157,4 +157,4 @@ These are non-obvious problems that require reading multiple files to discover. 
 
 **Production Readiness**
 - `echo=True` in `database.py` prints every SQL query to stdout. Remove before deploying. ✅
-- No pagination on `/history`. A user with many records will cause a full table scan and a large response payload. Add `limit` and `offset` query params.
+- No pagination on `/history`. A user with many records will cause a full table scan and a large response payload. Add `limit` and `offset` query params. ✅
