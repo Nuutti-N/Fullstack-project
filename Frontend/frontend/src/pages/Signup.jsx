@@ -16,7 +16,7 @@ function Signup() {
 
                 type="password"
                 value={password}
-                onChange={e => setUsername(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
             />
             <button type="submit">Sign up</button>
         </form>
