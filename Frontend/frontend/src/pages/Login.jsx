@@ -3,8 +3,12 @@ import { useState } from "react"
 function Login() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    async function handleSubmit(e) {
+        e.preventDefault()
+        console.log(username, password)
+    }
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <input
                 type="text"
                 value={username}
@@ -19,6 +23,7 @@ function Login() {
         </form>
     )
 }
+
 
 
 export default Login
