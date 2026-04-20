@@ -3,17 +3,24 @@ import api from "../api/client"
 import { useNavigate } from "react-router-dom"
 
 function Signup() {
+    const navigate = useNavigate()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    async function handleSubmit(e) {
+        e.preventDefault()
+        const response = await api.post("/signup", { username, password })
+
+        navigate("/login")
+
+    }
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <input
                 type="text"
                 value={username}
                 onChange={e => setUsername(e.target.value)}
             />
             <input
-
                 type="password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
