@@ -1,7 +1,9 @@
 import { useState } from "react"
 import api from "../api/client"
+// import useNavigate from "react-router-dom"
 
 function Login() {
+    // const navigate = useNavigate()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     async function handleSubmit(e) {
@@ -10,6 +12,7 @@ function Login() {
         data.append("username", username)
         data.append("password", password)
         const response = await api.post("/login", data)
+        localStorage.setItem("token", response.data.access_token)
         console.log(response.data)
     }
     return (
@@ -28,6 +31,8 @@ function Login() {
         </form>
     )
 }
+
+
 
 
 
