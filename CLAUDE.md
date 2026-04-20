@@ -126,19 +126,41 @@ web: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
 The user is learning React step-by-step. Do not write frontend code for them — explain, let them write, review.
 
 **Completed lessons:**
-- ✅ Lesson 1 — React Router basics: `<BrowserRouter>` (wrapper), `<Routes>` (container), `<Route path=".." element={<X />} />` (rule). No commas between JSX siblings. User wrote the 3 Route entries in App.jsx themselves.
+- ✅ Lesson 1 — React Router basics: `<BrowserRouter>`, `<Routes>`, `<Route>`. User wrote 3 Route entries in App.jsx.
+- ✅ Lesson 2 — Login page (`src/pages/Login.jsx`):
+  - useState for username + password
+  - controlled inputs (value + onChange)
+  - form with submit button
+  - `async handleSubmit` with `e.preventDefault()` + `console.log`
+  - scope rule: handleSubmit must live INSIDE Login (so it sees username/password)
+  - function order: define before `return`
+- ✅ Lesson 3 — Login API call:
+  - `import api from "../api/client"` (Python vs JS import syntax; `../` vs `./`)
+  - `api.post(where, what)` shape
+  - `await` — waits for backend answer; requires `async` on enclosing function
+  - `URLSearchParams` — backend wants form-urlencoded, not JSON
+  - CORS debugging — backend must list frontend origin, and must be restarted after config change
+  - Got `{access_token, refresh_token}` printed in Console ✅
 
-**Next lesson (pick up here):**
-- 🔜 Lesson 2 — Creating page components. Tasks for the user:
-  1. Create `src/pages/Login.jsx`, `src/pages/Analyze.jsx`, `src/pages/History.jsx`
-  2. Each: a function returning a simple `<h1>` + `export default`
-  3. Explain WHY `export default` is needed (open question already asked — user will answer next session)
-  4. After pages exist: add the 3 `import` lines at the top of `App.jsx`
-- 🔜 Lesson 3 (after) — Build `components/PrivateRoute.jsx` to protect `/analyze` and `/history`
+**Current state of Login.jsx (as of 2026-04-20):**
+- Form sends credentials, receives token, logs it.
+- NEXT tiny step (not done yet): `localStorage.setItem("token", response.data.access_token)` — save token so page refresh keeps user logged in.
+
+**Upcoming lessons (user's roadmap):**
+- 🔜 Lesson 4 — Finish Login: save token to localStorage + `useNavigate` redirect after login.
+- 🔜 Lesson 5 — Signup page (`src/pages/Signup.jsx`) — same shape as Login but hits `POST /signup`.
+- 🔜 Lesson 6 — Analyze page (`src/pages/Analyze.jsx`) — textarea + POST to `/analyze` + render the trust score/verdict.
+- 🔜 Lesson 7 — History page (`src/pages/History.jsx`) — GET `/history` on mount, list results, delete buttons.
+- 🔜 Lesson 8 — New Chat page — POST `/chat`, render Gemini reply.
+- 🔜 Lesson 9 — `components/PrivateRoute.jsx` to protect `/analyze`, `/history`, chat routes.
+- 🔜 Lesson 10 — Fix the `'bearer' + token` bug in `api/client.js` (should be `'Bearer ' + token` with capital B + space).
 
 **Teaching style reminders:**
-- User mentioned dyslexia-friendly explanations — use simple visual analogies (hotel/keys worked well), repeat concepts, break things into small numbered steps.
-- Always ask comprehension-check questions before moving on.
+- User is dyslexic. KEEP MESSAGES VERY SHORT (~10 lines max). Cut analogies to bone. Split big explanations across turns.
+- ONE new concept per turn. Never dump 3 concepts at once.
+- Always include a link to official docs (MDN, axios-http.com, react.dev) so user can verify.
+- Numbered steps land best. Ask one small comprehension question before moving on.
+- Never write code for them. Guide; let them type it.
 
 ## Known Issues & Gotchas
 
