@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 from backend.users import router as users_router
 from backend.routers import router as routers
 from slowapi.errors import RateLimitExceeded
-from backend.rating_limiter import limiter
+from backend.rate_limiter import limiter
 from contextlib import asynccontextmanager
 
 
