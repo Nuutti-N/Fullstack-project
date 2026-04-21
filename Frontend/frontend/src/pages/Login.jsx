@@ -15,7 +15,7 @@ function Login() {
         const response = await api.post("/login", data)
         localStorage.setItem("token", response.data.access_token)
         console.log(response.data)
-        navigate("/login")
+        navigate("/analyze")
     }
     return (
         <form onSubmit={handleSubmit}>
