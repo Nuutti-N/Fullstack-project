@@ -7,12 +7,19 @@ function Analyze() {
     const [text, setText] = useState("")
     const [results, setResults] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
     async function handleSubmit(e) {
         e.preventDefault()
         setLoading(true)
-        const response = await api.post("/analyze", null, { params: { text } })
-        setResults(response.data)
-        setLoading(false)
+        try {
+            setError("")
+            const response = await api.post("/analyze", null, { params: { text } })
+            setResults(response.data)
+        } catch (err) {
+            setError("Something went wrong. Try again.")
+        } finally {
+            setLoading(false)
+        }
     }
 
 
@@ -22,8 +29,10 @@ function Analyze() {
             onChange={e => setText(e.target.value)}
 
         />
-        <button type="submit" disabled={loading}>Analyze</button>
+        <button type="submit" disabled={loading}>{loading ? "Analyzing..." : "Analyze"}</button>
     </form>
+        {error &&
+            <p style={{ color: "red" }}>{error}</p>}
         {results && (
             <div>
                 <p>Score: {results.score}</p>
@@ -33,6 +42,7 @@ function Analyze() {
                 <p>recommend: {results.recommend}</p>
             </div>
         )}
+
     </>)
 }
 
