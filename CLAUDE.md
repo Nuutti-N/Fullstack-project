@@ -157,7 +157,7 @@ The user is learning React step-by-step. Do not write frontend code for them —
 - 🔜 Lesson 11 - Style the frontend - even 30 lines of css changes everything.
 - 🔜 lesson 12 - Finish the History page - complete the MVP loop. ✅
 - 🔜 lesson 13 - add <PrivateRoute> - protect/analyze and/history. ✅ 
-- 🔜 lessons 14 - add logout + show current user - essential ux
+- 🔜 lessons 14 - add logout + show current user - essential ux ✅ 
 
 
 
