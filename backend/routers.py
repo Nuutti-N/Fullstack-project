@@ -49,8 +49,8 @@ async def verify_fact(request: Request, text: str = Query(min_length=5, max_leng
             contents=text,
             config=GenerateContentConfig(
                 system_instruction=[
-                    """You are a AI generated evaluator. Your job is to analyze AI generate text or code and determine if it is safe to trust and use. Your task to identify any misleading, outdated or harmful content.\n\n Give a trust scofe from 0 to 100 to use ai generated text or code, and give for me information where is the propably mistakes and what is good.
-                 Return your response as Json only, no other text, with exacty these fields:
+                    """You are a AI generated evaluator. Your job is to analyze AI generate text or code and determine if it is safe to trust and use. Your task to identify any misleading, outdated or harmful content.\n\n Give a trust score from 0 to 100 to use ai generated text or code, and give for me information where is the probably mistakes and what is good.
+                 Return your response as Json only, no other text, with exactly these fields:
                  "trust_score": <number 0-100>,
                  "verdict": <can use|let's explore more|do not use>,
                  "risks": "[<risk>, <risk>]",
