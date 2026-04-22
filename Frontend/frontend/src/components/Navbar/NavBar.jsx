@@ -1,13 +1,31 @@
 import "./NavBar.css"
 import { useNavigate } from "react-router-dom"
-
+import { useState, useEffect } from "react"
+import api from "../../api/client"
 
 function NavBar() {
+    const [Loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
     const navigate = useNavigate()
-    function handleLogout() {
-        localStorage.removeItem('token')
-        navigate("/login")
-    }
+    useEffect(() => {
+        function handleLogout() {
+            setLoading(true)
+            try {
+                setError("")
+                localStorage.removeItem('token')
+                const response = api.get("/your")
+                response.data
+            }
+            catch (err) {
+
+            }
+            finally {
+                setLoading(false)
+            }
+            navigate("/login")
+        }
+    }, [])
+
 
     return (<> <nav> <button onClick={handleLogout}>Log out</button></nav>
         <div className="navbar">
