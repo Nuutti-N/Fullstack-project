@@ -150,6 +150,7 @@ Label {
 
 .auth-submit:hover {
     transition: background-color 0.15s ease;
+    background-color: hsl(234, 89%, 40%);
 }
 
 .auth-submit svg {
