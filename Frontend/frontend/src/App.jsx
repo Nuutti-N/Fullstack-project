@@ -6,6 +6,7 @@ import History from "./pages/History"
 import PrivateRoute from "./components/PrivateRoutes"
 import NavBar from "./components/Navbar/NavBar"
 
+
 function App() {
   return (
     <BrowserRouter>

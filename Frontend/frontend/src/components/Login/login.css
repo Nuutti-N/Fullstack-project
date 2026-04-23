@@ -5,15 +5,13 @@
 .username-input {
     text-align: left;
     background-color: white;
-    height: 25px;
+    height: 20px;
 
 
 }
 
 .password-input {
     height: 20px;
-    font-size: 14px;
-    font-weight: 500;
     font-family: inherit;
 
 }
@@ -35,4 +33,8 @@ form {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    width: 360;
+    padding: 32px;
+    background: white;
+    border-radius: 12px;
 }
