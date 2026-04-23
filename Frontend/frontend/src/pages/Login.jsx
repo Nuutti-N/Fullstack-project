@@ -7,19 +7,25 @@ import { Eye, EyeOff, ArrowRight } from "lucide-react"
 
 function Login() {
     const navigate = useNavigate()
+    const [error, setError] = useState("")
     const [searchParams] = useSearchParams()
     const [username, setUsername] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const [password, setPassword] = useState("")
     async function handleSubmit(e) {
         e.preventDefault()
-        const data = new URLSearchParams()
-        data.append("username", username)
-        data.append("password", password)
-        const response = await api.post("/login", data)
-        localStorage.setItem("token", response.data.access_token)
-        console.log(response.data)
-        navigate("/analyze")
+        try {
+            setError("")
+            const data = new URLSearchParams()
+            data.append("username", username)
+            data.append("password", password)
+            const response = await api.post("/login", data)
+            localStorage.setItem("token", response.data.access_token)
+            navigate("/analyze")
+        }
+        catch (err) {
+            setError("wrong username or password")
+        }
     }
     return (
         <div className="auth-page">
@@ -58,6 +64,9 @@ function Login() {
                 <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff /> : <Eye />}</button>
+                {error &&
+                    <p className="auth-error">{error}</p>
+                }
                 <button type="submit" className="auth-submit">Log in
                     <ArrowRight />
                 </button>

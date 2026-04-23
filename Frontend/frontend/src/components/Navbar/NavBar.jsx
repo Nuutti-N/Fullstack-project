@@ -37,8 +37,8 @@ function NavBar() {
         <nav>  {user &&
             <span>How can I help you, {user.username}</span>}<button onClick={handleLogout}>Log out</button></nav>
         <header className="header">
-            <a hfer="/" className="logo">logo</a>
-            <nav classname="navbar">
+            <a href="/" className="logo">logo</a>
+            <nav className="navbar">
                 <a href="/">Get started for free</a>
                 <a href="/">Log in</a>
             </nav>

@@ -102,6 +102,13 @@ Label {
     box-sizing: border-box;
 }
 
+.auth-error {
+    color: #dc2626;
+    font-size: 13px;
+    margin: 0;
+    width: 100%;
+}
+
 .auth-submit {
     height: 44px;
     width: 100%;
