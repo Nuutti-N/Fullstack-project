@@ -1,13 +1,13 @@
 import { useState } from "react"
 import api from "../api/client"
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { useNavigate, useSearchParams, Link } from "react-router-dom"
 import "../components/Login/login.css"
 import { Eye, EyeOff } from "lucide-react"
+
 
 function Login() {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
-    const [isLogin, setIsLogin] = useState(searchParams.get("tab") !== "signup")
     const [username, setUsername] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const [password, setPassword] = useState("")
@@ -28,7 +28,9 @@ function Login() {
                     <h1>Welcome back</h1>
                     <p>Log in to verify your account</p>
                 </header>
-                <label htmlFor="username">Username</label>
+                <div className="username-row">
+                    <label htmlFor="username">Username</label>
+                </div>
                 <input
                     id="username"
                     type="text"
@@ -39,7 +41,7 @@ function Login() {
                 />
                 <div className="password-row">
                     <label htmlFor="password">Password</label>
-                    <button type="button" className="link">Forgot password</button>
+                    <button type="button" className="forgot.link">Forgot password</button>
                 </div>
                 <input
                     id="password"
@@ -54,7 +56,9 @@ function Login() {
                     type="button"
                     className="password-toggle" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff /> : <Eye />}</button>
                 <button type="submit">Log in</button>
-                {isLogin ? "Don't have an account?" : "Already have an account?"}
+
+                <p>Don't have an account?</p>
+                <Link to="/signup" className="auth-link">Sign up</Link>
             </form>
         </div>
     )

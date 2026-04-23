@@ -2,19 +2,6 @@
     property: value;
 } */
 
-.username-input {
-    text-align: left;
-    background-color: white;
-    height: 20px;
-
-
-}
-
-.password-input {
-    height: 20px;
-    font-family: inherit;
-
-}
 
 button {
     height: 44px;
@@ -77,7 +64,19 @@ form {
 
 
 Label {
+    display: flex;
     font-size: 13px;
     font-weight: 600;
     color: #0f172a;
+}
+
+.username-row {
+    display: left;
+}
+
+.password-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
 }

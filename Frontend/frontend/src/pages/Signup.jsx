@@ -1,6 +1,6 @@
 import { useState } from "react"
 import api from "../api/client"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 function Signup() {
     const navigate = useNavigate()
@@ -26,6 +26,8 @@ function Signup() {
                 onChange={e => setPassword(e.target.value)}
             />
             <button type="submit">Sign up</button>
+            <p>Already have an account?</p>
+            <Link to="/login" className="auth-link">Log in</Link>
         </form>
 
     )
