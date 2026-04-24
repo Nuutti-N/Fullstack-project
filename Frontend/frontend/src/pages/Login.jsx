@@ -29,10 +29,10 @@ function Login() {
     }
     return (
         <div className="auth-page">
-            <form className="auth-card" onSubmit={handleSubmit}>
+            <form className="auth-form" onSubmit={handleSubmit}>
                 <header className="auth-header">
-                    <h1>Welcome back</h1>
-                    <p>Log in to verify your account</p>
+                    <h1 className="auth-title">Welcome back</h1>
+                    <p className="auth-subtitle">Log in to verify your account</p>
                 </header>
                 <div className="username-row">
                     <label htmlFor="username">Username</label>
@@ -45,28 +45,29 @@ function Login() {
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                 />
-                <div className="form-group">
+                <div>
                     <div className="password-row">
                         <label htmlFor="password">Password</label>
                         <button type="button" className="forgot-link">Forgot password</button>
                     </div>
+                    <div className="password-wrapper">
+                        <input
+                            id="password"
+                            type={showPassword ? "text" : "password"}
+                            placeholder="••••••••"
+                            className="password-input"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            minLength={8}
+                        />
+                        <button
+                            type="button"
+                            className="hide-button"
+                            onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff /> : <Eye />}</button>
+                    </div>
                 </div>
-                <div className="password-wrapper">
-                    <input
-                        id="password"
-                        type={showPassword ? "text" : "password"}
-                        placeholder="••••••••"
-                        className="password-input"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        minLength={8}
-                    />
-                    <button
-                        type="button"
-                        className="hide-button"
-                        onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff /> : <Eye />}</button>
-                </div>
-                {error &&
+                {
+                    error &&
                     <p className="auth-error">{error}</p>
                 }
                 <button type="submit" className="auth-submit">Log in
@@ -91,11 +92,11 @@ function Login() {
                     </button>
                 </div>
                 <div className="auth-toggle">
-                    <p>Don't have an account?</p>
+                    <p className="auth-no">Don't have an account?</p>
                     <Link to="/signup" className="auth-link">Sign up</Link>
                 </div>
-            </form>
-        </div>
+            </form >
+        </div >
     )
 }
 

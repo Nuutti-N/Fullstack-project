@@ -15,60 +15,53 @@ button {
 
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: 360;
-    padding: 32px;
-    border-radius: 12px;
-}
-
 
 .auth-page {
     min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
 
 }
 
-.auth-card {
+.auth-form {
     width: 100%;
-    max-width: 420px;
+    max-width: 400px;
     padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 
 }
 
+.auth-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
 
-.auth-header h1 {
+.auth-title {
     font-size: 24px;
     font-weight: 600;
+    letter-spacing: -.02em;
+    color: #020817;
     margin: 0;
-    letter-spacing: -0.02em;
-    color: #0f172a;
-
 }
 
-.auth-header p {
-    margin: 8px;
+.auth-subtitle {
+    margin-top: 8px;
     font-size: 14px;
-    color: #0f172a;
-
+    color: hsl(215, 16%, 47%);
 }
 
 
 Label {
     display: flex;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 500;
     color: #0f172a;
 }
 
-.username-row {
-    display: left;
-}
 
 
 .username-input {
@@ -85,16 +78,18 @@ Label {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #0f172a;
+
 }
 
 .password-input {
-    width: 40px;
+    height: 40px;
     padding: 12px;
     border: 1px solid hsl(214, 32%, 91%);
     border-radius: 7px;
     width: 100%;
-
 
 }
 
@@ -113,10 +108,11 @@ Label {
     color: hsl(222, 84%, 4.9%);
 }
 
-
-
 .password-wrapper {
     position: relative;
+}
+
+.password-wrapper input {
     width: 100%;
     padding-right: 40px;
     box-sizing: border-box;
@@ -124,7 +120,7 @@ Label {
 
 .hide-button {
     position: absolute;
-    right: 45px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -242,6 +238,11 @@ Label {
     width: 100%;
 }
 
+.auth-no {
+    font-size: 14px;
+    color: hsl(215, 16%, 47%);
+}
+
 .auth-link {
     display: inline-flex;
     align-items: center;
@@ -256,4 +257,5 @@ Label {
     transition: text-decoration 0.15s ease;
     text-decoration: underline;
     text-underline-offset: 4px;
+    color: hsl(222, 84%, 4.9%)
 }
