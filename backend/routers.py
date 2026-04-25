@@ -3,7 +3,7 @@ from google import genai
 from google.genai.types import GenerateContentConfig
 from backend.supabase_client import supabase
 from backend.users import get_current_user
-from fastapi import HTTPException, APIRouter, Depends, Request, Query, Path
+from fastapi import HTTPException, APIRouter, Depends, Request, Body, Path
 from backend.config import settings
 from backend.logger import logger
 from backend.rate_limiter import limiter
@@ -21,7 +21,7 @@ async def welcome():
 
 @router.post("/chat", tags=["verify"])
 @limiter.limit("5/minute")
-async def verify_text(request: Request, user_message: str = Query(min_length=1, max_length=2000), current_user=Depends(get_current_user)):
+async def verify_text(request: Request, user_message: str = Body(min_length=1, max_length=2000), current_user=Depends(get_current_user)):
     try:
         logger.info("chat_request user_id=%s message_len=%s",
                     current_user.id, len(user_message))
@@ -40,7 +40,7 @@ async def verify_text(request: Request, user_message: str = Query(min_length=1, 
 
 @router.post("/analyze", tags=["verify"])
 @limiter.limit("5/minute")
-async def verify_fact(request: Request, text: str = Query(min_length=5, max_length=2000), current_user=Depends(get_current_user)):
+async def verify_fact(request: Request, text: str = Body(min_length=5, max_length=2000), current_user=Depends(get_current_user)):
     try:
         logger.info("Fact check requested by user user_id=%s claim=%s",
                     current_user.id, text[:50])
@@ -94,7 +94,7 @@ async def verify_fact(request: Request, text: str = Query(min_length=5, max_leng
 
 
 @router.get("/history", tags=["verify"])
-async def get_my_facts(current_user=Depends(get_current_user), limit: int = Query(20, ge=0), offset: int = Query(0, ge=0)):
+async def get_my_facts(current_user=Depends(get_current_user), limit: int = Body(20, ge=0), offset: int = Body(0, ge=0)):
     try:
         logger.info("History_check_requested_user user_id=%s", current_user.id)
         data = supabase.table("fact_checks").select(
