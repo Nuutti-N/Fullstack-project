@@ -3,7 +3,7 @@ from google import genai
 from google.genai.types import GenerateContentConfig
 from backend.supabase_client import supabase
 from backend.users import get_current_user
-from fastapi import HTTPException, APIRouter, Depends, Request, Body, Path
+from fastapi import HTTPException, APIRouter, Depends, Request, Query, Body, Path
 from backend.config import settings
 from backend.logger import logger
 from backend.rate_limiter import limiter
@@ -94,7 +94,7 @@ async def verify_fact(request: Request, text: str = Body(min_length=5, max_lengt
 
 
 @router.get("/history", tags=["verify"])
-async def get_my_facts(current_user=Depends(get_current_user), limit: int = Body(20, ge=0), offset: int = Body(0, ge=0)):
+async def get_my_facts(current_user=Depends(get_current_user), limit: int = Query(20, ge=0), offset: int = Query(0, ge=0)):
     try:
         logger.info("History_check_requested_user user_id=%s", current_user.id)
         data = supabase.table("fact_checks").select(
