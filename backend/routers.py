@@ -42,12 +42,13 @@ async def verify_text(request: Request, user_message: str = Query(min_length=1, 
 @limiter.limit("5/minute")
 async def verify_fact(request: Request, text: str = Query(min_length=5, max_length=2000), current_user=Depends(get_current_user)):
     try:
-        logger.info(
-            f"Fact check requested by user {current_user.id}: {text[:50]}")
+        logger.info("Fact check requested by user user_id=%s claim=%s",
+                    current_user.id, text[:50])
         response = client.models.generate_content(
             model="gemini-3-flash-preview",
             contents=text,
             config=GenerateContentConfig(
+                response_mime_type="application/json",
                 system_instruction=[
                     """You are a AI generated evaluator. Your job is to analyze AI generate text or code and determine if it is safe to trust and use. Your task to identify any misleading, outdated or harmful content.\n\n Give a trust score from 0 to 100 to use ai generated text or code, and give for me information where is the probably mistakes and what is good.
                  Return your response as Json only, no other text, with exactly these fields:
@@ -59,8 +60,7 @@ async def verify_fact(request: Request, text: str = Query(min_length=5, max_leng
                 ])
         )
 
-        data = json.loads(response.text.replace(
-            "```json", "").replace("```", "").strip())
+        data = json.loads(response.text.strip())
         logger.info("Fact check result for user user_id=%s trust_score=%s verdict=%s risks=%s pros=%s recommend=%s",
                     current_user.id, data["trust_score"], data["verdict"], data["risks"], data["pros"], data["recommend"])
 
@@ -112,7 +112,7 @@ async def get_my_facts(current_user=Depends(get_current_user), limit: int = Quer
 async def delete_my_facts(fact_id: int = Path(ge=1), current_user=Depends(get_current_user)):
     try:
         logger.info(
-            "delete_history_unexcpected_response user_id=%s fact_id=%s", current_user.id, fact_id)
+            "delete_history_unexpected_response user_id=%s fact_id=%s", current_user.id, fact_id)
         data = supabase.table("fact_checks").delete().eq(
             "id", fact_id).eq("user_id", current_user.id).execute()
         if data.data is None:
