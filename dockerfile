@@ -1,5 +1,6 @@
 FROM python:3.13-slim
 WORKDIR /app
+RUN useradd app
 
 # Install the application dependencies
 COPY requirements.txt ./
@@ -7,6 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy in the source code
 COPY . . 
+
 
 # Switch to non-root user
 USER app
