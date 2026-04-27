@@ -8,6 +8,7 @@ from backend.health import router as health
 from slowapi.errors import RateLimitExceeded
 from backend.rate_limiter import limiter
 from contextlib import asynccontextmanager
+from backend.config import settings
 
 
 @asynccontextmanager
@@ -24,9 +25,9 @@ app = FastAPI(lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        # react, I will add later it, in this project, and then customer can see and buy things.
         "http://localhost:3000",
         "http://localhost:5173",
+        settings.VITE_API_URL,
     ],
     allow_credentials=True,
     allow_methods=["GET", "DELETE", "POST"],
