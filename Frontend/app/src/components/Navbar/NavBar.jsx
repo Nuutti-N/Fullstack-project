@@ -38,13 +38,19 @@ function NavBar() {
     return (<>
         {user &&
             <span>How can I help you, {user.username}</span>}
+        <button onClick={handleLogout}>Log out</button>
         <header className="header">
-            <a href="/" className="logo">logo</a>
-            <nav className="navbar">
-                <a href="/">Get started for free</a>
+            <div className="nav-left">
+                <a href="/">logo</a>
+            </div>
+            <div className="nav-middle">
+                <a href="/">Features</a>
+                <a href="/">How it works</a>
+            </div>
+            <div className="nav-right">
                 <a href="/">Log in</a>
-                <button onClick={handleLogout}>Log out</button>
-            </nav>
+                <a href="/">Get started</a>
+            </div>
         </header>
     </>
     )
