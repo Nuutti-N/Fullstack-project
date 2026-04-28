@@ -5,7 +5,7 @@ import Analyze from "./pages/Analyze"
 import History from "./pages/History"
 import PrivateRoute from "./components/PrivateRoutes"
 import NavBar from "./components/Navbar/NavBar"
-
+import Home from "./pages/home"
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/home" elements={<Home />} />
       </Routes>
     </BrowserRouter>)
 }
