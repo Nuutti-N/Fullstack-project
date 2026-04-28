@@ -17,9 +17,10 @@ function Home() {
                 <Link to="/" className="hero-work">See how it works</Link>
             </div>
         </div>
+        <div className="section-divider"></div>
         <section className="features">
             <h2>Built for accuracy.</h2>
-            <p>Every verification returns a structure verdict, confidence score, and recommend you can audit.</p>
+            <p className="features-sub">Every verification returns a structured verdict, confidence score, and recommend you can audit.</p>
             <div className="features-grid">
                 <div className="features-card">
                     <h3>Text fact-checking</h3>
@@ -35,6 +36,28 @@ function Home() {
                 </div>
             </div>
         </section>
+        <div className="section-divider"></div>
+        <section className="how-work">
+            <h2>Three steps to certainty.</h2>
+            <div className="works-grid">
+                <div className="works-card">
+                    <span className="work-number">01</span>
+                    <h3>Paste content</h3>
+                    <p>Drop in any text or code snippet you want to verify</p>
+                </div>
+                <div className="works-card">
+                    <span className="work-number">02</span>
+                    <h3>AI analyzes</h3>
+                    <p>Our model cross-references claims, audits logic, and surfaces issues.</p>
+                </div>
+                <div className="works-card">
+                    <span className="work-number">03</span>
+                    <h3>Get a verdict</h3>
+                    <p>A clear true/false/unclear verdict with confidence and reasoning.</p>
+                </div>
+            </div>
+        </section>
+        <div className="section-divider"></div>
 
 
     </>
