@@ -43,8 +43,9 @@ function NavBar() {
                 <a href="/"><img src={logo} alt="logo" /></a>
             </div>
             <div className="nav-middle">
-                <a href="/">Features</a>
-                <a href="/">How it works</a>
+                <Link to="/analyze">Analyze</Link>
+                <a href="/#Features">Features</a>
+                <a href="/#How-it-works">How it works</a>
             </div>
             <div className="nav-right">
                 <Link className="nav-login" to="/login">Log in</Link>
