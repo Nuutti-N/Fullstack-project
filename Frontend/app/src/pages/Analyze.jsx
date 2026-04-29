@@ -31,11 +31,11 @@ function Analyze() {
             <p className="analyze-title">Paste any text or code. Get an AI verdict in seconds</p> */}
             <form className="analyze-card" onSubmit={handleSubmit}>
                 <button type="button" onClick={() => setType("text")}
-                    className={type === "text" ? "type-active" : ""}>
+                    className={"Analyze-type-btn" + type === "text" ? "type-active" : ""}>
                     Text
                 </button>
                 <button type="button" onClick={() => setType("code")}
-                    className={type === "code" ? "type-active" : ""}>
+                    className={"Analyze-type-btn" + type === "code" ? "type-active" : ""}>
                     Code
                 </button>
                 <textarea
