@@ -1,6 +1,7 @@
 import { useState } from "react"
 import api from "../api/client"
 import "./analyze.css"
+import { Loader2, Sparkles } from "lucide-react"
 
 
 function Analyze() {
@@ -25,16 +26,18 @@ function Analyze() {
 
     return (
         <div className="analyze-page">
+            {/* <h1 className="analyze-title">Analyze</h1>
+            <p className="analyze-title">Paste any text or code. Get an AI verdict in seconds</p> */}
             <form className="analyze-card" onSubmit={handleSubmit}>
                 <textarea
                     className="analyze-input"
                     value={text}
                     onChange={e => setText(e.target.value)}
-
+                    maxLength={8000}
                 />
                 <div className="analyze-footer">
                     <span >{text.length}/8000</span>
-                    <button className="analyze-btn" type="submit" disabled={loading}>{loading ? "Analyzing..." : "Analyze"}</button>
+                    <button className="analyze-btn" type="submit" disabled={loading}><Sparkles className="analyze-sparkles" />{loading ? <Loader2 /> : "Analyze"} </button>
                 </div>
             </form>
             {error &&
