@@ -5,6 +5,7 @@ import { Loader2, Sparkles } from "lucide-react"
 
 
 function Analyze() {
+    const [type, setType] = useState("text")
     const [text, setText] = useState("")
     const [results, setResults] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -29,7 +30,16 @@ function Analyze() {
             {/* <h1 className="analyze-title">Analyze</h1>
             <p className="analyze-title">Paste any text or code. Get an AI verdict in seconds</p> */}
             <form className="analyze-card" onSubmit={handleSubmit}>
+                <button type="button" onClick={() => setType("text")}
+                    className={type === "text" ? "type-active" : ""}>
+                    Text
+                </button>
+                <button type="button" onClick={() => setType("code")}
+                    className={type === "code" ? "type-active" : ""}>
+                    Code
+                </button>
                 <textarea
+                    placeholder={type === "code" ? "Paste code to audit..." : "Paste a claim, article or post to fact-check..."}
                     className="analyze-input"
                     value={text}
                     onChange={e => setText(e.target.value)}
