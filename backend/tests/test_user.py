@@ -29,7 +29,7 @@ def test_login_fail(client):
 
 
 def test_your_requires_token(client):
-    response = client.get("/your")
+    response = client.get("/me")
     assert response.status_code == 401
     assert response.json()["detail"] == "Not authenticated"
 
@@ -45,7 +45,7 @@ def test_works_with_token(client):
     assert login.status_code == 200
     token = login.json()["access_token"]
     response = client.get(
-        "/your", headers={"Authorization": f"Bearer {token}"})
+        "/me", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200
     data = response.json()
     assert data["username"] == "testuser"
