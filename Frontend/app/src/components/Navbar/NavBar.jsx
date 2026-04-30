@@ -17,7 +17,7 @@ function NavBar() {
             setLoading(true)
             try {
                 setError("")
-                const response = await api.get("/your")
+                const response = await api.get("/me")
                 setUser(response.data)
             }
             catch (err) {
