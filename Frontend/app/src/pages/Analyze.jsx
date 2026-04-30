@@ -60,10 +60,10 @@ function Analyze() {
                         className="analyze-input"
                         value={text}
                         onChange={e => setText(e.target.value)}
-                        maxLength={8000}
+                        maxLength={2000}
                     />
                     <div className="analyze-footer">
-                        <span className="analyze-length">{text.length}/8000</span>
+                        <span className="analyze-length">{text.length}/2000</span>
                         <button className="analyze-btn" type="submit" disabled={loading}><Sparkles className="analyze-sparkles" />{loading ? <Loader2 /> : "Analyze"} </button>
                     </div>
                 </form>}
