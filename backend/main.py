@@ -27,7 +27,6 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "http://localhost:5173",
-        "https://fullstack-project-nine-chi.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["GET", "DELETE", "POST"],
