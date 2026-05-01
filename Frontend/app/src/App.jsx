@@ -5,6 +5,7 @@ import Analyze from "./pages/Analyze"
 import PrivateRoute from "./components/PrivateRoutes"
 import NavBar from "./components/Navbar/NavBar"
 import Home from "./pages/home"
+import history from "./pages/Analyze.jsx"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route path="/analyze" element={<Analyze />} />
+          <Route path="/history" element={<History />} />
         </Route>
 
         <Route path="/login" element={<Login />} />

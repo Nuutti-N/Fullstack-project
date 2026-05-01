@@ -25,6 +25,10 @@ function Analyze() {
             setLoading(false)
         }
     }
+    async function handleDelete(id) {
+        const response = await api.delete(`/delete_history/${id}`)
+        setHistory(history.filter(item => item.id !== id))
+    }
     useEffect(() => {
         async function loadhistory() {
             const response = await api.get("/history", { params: { limit: 100 } })
@@ -68,11 +72,15 @@ function Analyze() {
                     </div>
                 </form>}
             {showHistory &&
-                history.map(item => (<div key={item.id}>  <p>{item.score}</p>
+                history.map(item => (<div key={item.id}>
+                    <p>{item.claim}</p>
+                    <p>{item.score}</p>
                     <p>{item.verdict}</p>
                     <p>{item.risks}</p>
                     <p>{item.pros}</p>
-                    <p>{item.recommend}</p></div>))}
+                    <p>{item.recommend}</p>
+                    <button onClick={() => handleDelete(item.id)}>Delete</button>
+                </div>))}
             {error &&
                 <p style={{ color: "red" }}>{error}</p>}
             {results && (
