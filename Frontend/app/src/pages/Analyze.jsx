@@ -85,9 +85,13 @@ function Analyze() {
                 <p style={{ color: "red" }}>{error}</p>}
             {results && (
                 <div>
+                    {results.risks.map((risk, index) => (
+                        <p key={index}>{risk}</p>))}
+                    {results.pros.map((pros, index) => (
+                        <p key={index}>{pros}</p>
+                    ))}
                     <p>Score: {results.score}</p>
                     <p>Verdict: {results.verdict}</p>
-                    <p>risks: {results.risks}</p>
                     <p>pros: {results.pros}</p>
                     <p>recommend: {results.recommend}</p>
                 </div>

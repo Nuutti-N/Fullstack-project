@@ -54,8 +54,8 @@ async def verify_fact(request: Request, text: str = Body(min_length=5, max_lengt
                  Return your response as Json only, no other text, with exactly these fields:
                  "trust_score": <number 0-100>,
                  "verdict": <can use|let's explore more|do not use>,
-                 "risks": "[<risk>, <risk>]",
-                 "pros": "[<pros>, <pros>]",
+                 "risks": [<risk>, <risk>],
+                 "pros": [<pros>, <pros>],
                  "recommend": "<what the user should do>"""
                 ])
         )
