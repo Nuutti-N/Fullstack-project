@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import api from "../api/client"
 import "./analyze.css"
-import { Loader2, Sparkles, History } from "lucide-react"
+import { Loader2, Sparkles, History, X } from "lucide-react"
 
 
 function Analyze() {
@@ -43,44 +43,49 @@ function Analyze() {
                 <h1 className="analyze-title">Analyze.</h1>
                 <p className="analyze-subtitle">Paste any text or code. Get an AI verdict in seconds</p>
             </div>
-            {!showHistory &&
-                <form className="analyze-card" onSubmit={handleSubmit}>
-                    <button type="button" onClick={() => setType("text")}
-                        className={"Analyze-type-btn " + (type === "text" ? "type-active" : "")}>
-                        Text
-                    </button>
-                    <button type="button" onClick={() => setType("code")}
-                        className={"Analyze-type-btn " + (type === "code" ? "type-active" : "")}>
-                        Code
-                    </button>
-                    <button type="button" onClick={() => setShowHistory(true)}>
-                        <History />
-                        {history.length > 0 && (
-                            <span >{history.length}</span>
-                        )}
-                    </button>
-                    <textarea
-                        placeholder={type === "code" ? "Paste code to audit..." : "Paste a claim, article or post to fact-check..."}
-                        className="analyze-input"
-                        value={text}
-                        onChange={e => setText(e.target.value)}
-                        maxLength={2000}
-                    />
-                    <div className="analyze-footer">
-                        <span className="analyze-length">{text.length}/2000</span>
-                        <button className="analyze-btn" type="submit" disabled={loading}><Sparkles className="analyze-sparkles" />{loading ? <Loader2 /> : "Analyze"} </button>
-                    </div>
-                </form>}
+            <form className="analyze-card" onSubmit={handleSubmit}>
+                <button type="button" onClick={() => setType("text")}
+                    className={"Analyze-type-btn " + (type === "text" ? "type-active" : "")}>
+                    Text
+                </button>
+                <button type="button" onClick={() => setType("code")}
+                    className={"Analyze-type-btn " + (type === "code" ? "type-active" : "")}>
+                    Code
+                </button>
+                <button type="button" onClick={() => setShowHistory(true)}>
+                    <History />
+                    {history.length > 0 && (
+                        <span >{history.length}</span>
+                    )}
+                </button>
+                <textarea
+                    placeholder={type === "code" ? "Paste code to audit..." : "Paste a claim, article or post to fact-check..."}
+                    className="analyze-input"
+                    value={text}
+                    onChange={e => setText(e.target.value)}
+                    maxLength={2000}
+                />
+                <div className="analyze-footer">
+                    <span className="analyze-length">{text.length}/2000</span>
+                    <button className="analyze-btn" type="submit" disabled={loading}><Sparkles className="analyze-sparkles" />{loading ? <Loader2 /> : "Analyze"} </button>
+                </div>
+            </form>
             {showHistory &&
-                history.map(item => (<div key={item.id}>
+                <div className="overlay-panel"></div>}
+            <div className={showHistory ? "history-panel open" : "history-panel"}>
+                <button onClick={() => setShowHistory(false)}>
+                    <X className="x-panel" />
+                </button>
+                {history.map(item => (<div key={item.id}>
                     <p>{item.claim}</p>
                     <p>{item.score}</p>
                     <p>{item.verdict}</p>
                     <p>{item.risks}</p>
                     <p>{item.pros}</p>
                     <p>{item.recommend}</p>
-                    <button onClick={() => handleDelete(item.id)}>Delete</button>
-                </div>))}
+                    <button onClick={() => handleDelete(item.id)}>Delete</button></div>
+                ))}
+            </div>
             {error &&
                 <p style={{ color: "red" }}>{error}</p>}
             {results && (

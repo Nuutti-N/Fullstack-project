@@ -52,6 +52,10 @@
     margin-top: 15px;
 }
 
+.analyze-length {
+    color: hsl(215 16% 47%)
+}
+
 .analyze-btn {
     padding: 0px 30px;
     gap: 6px;
@@ -78,4 +82,37 @@
 .type-active {
     border: 1px solid white;
     color: white;
+}
+
+.overlay-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.history-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 350px;
+    background-color: hsl(221 47% 10%);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    padding: 6px;
+    z-index: 1000;
+}
+
+.history-panel.open {
+    transform: translateX(0);
+}
+
+.x-panel {
+    width: 16px;
+    height: 16px;
 }
