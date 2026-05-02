@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import api from "../api/client"
 import "./analyze.css"
-import { Loader2, Sparkles, History, X } from "lucide-react"
+import { Loader2, Sparkles, History, X, Trash2 } from "lucide-react"
 
 
 function Analyze() {
@@ -95,16 +95,21 @@ function Analyze() {
             {error &&
                 <p style={{ color: "red" }}>{error}</p>}
             {results && (
-                <div>
-                    {results.risks.map((risk, index) => (
-                        <p key={index}>{risk}</p>))}
-                    {results.pros.map((pros, index) => (
-                        <p key={index}>{pros}</p>
-                    ))}
-                    <p>Score: {results.score}</p>
-                    <p>Verdict: {results.verdict}</p>
-                    <p>pros: {results.pros}</p>
-                    <p>recommend: {results.recommend}</p>
+                <div className="results-card">
+                    <div className="results-header">
+                        <h3>Confidence: {results.score}%</h3>
+                        <h3>Verdict: {results.verdict}</h3>
+                    </div>
+                    <div className="results-body">
+                        <h3>Risks</h3>
+                        {results.risks.map((risk, index) => (
+                            <p key={index}>{risk}</p>))}
+                        <h3>Pros</h3>
+                        {results.pros.map((pros, index) => (
+                            <p key={index}>{pros}</p>
+                        ))}
+                        <h3>Recommend: {results.recommend}</h3>
+                    </div>
                 </div>
             )}
         </div>)
