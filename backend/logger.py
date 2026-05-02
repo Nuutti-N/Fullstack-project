@@ -15,13 +15,13 @@ formatter = logging.Formatter(
 )
 console_handler.setFormatter(formatter)
 
+if not logger.handlers:
+    logger.addHandler(console_handler)
+
 # Add rotatingFileHandler, that if hit limit start new.
 if os.getenv("ENVIRONMENT") != "production":
     file_handler = RotatingFileHandler(
         "app.log", maxBytes=10000, backupCount=3)
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
-
-if not logger.handlers:
-    logger.addHandler(console_handler)
     logger.addHandler(file_handler)
