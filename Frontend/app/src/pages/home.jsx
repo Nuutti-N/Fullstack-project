@@ -14,17 +14,17 @@ function Home() {
                 and surface the signals you need to trust what you read</p>
             <div className="hero-actions">
                 <Link to="/signup" className="hero-verify" >Start verifying free <ArrowRight /> </Link>
-                <Link to="/" className="hero-work">See how it works</Link>
+                <a className="hero-work" href="/#How-it-works">See how it works</a>
             </div>
         </div>
         <div className="section-divider"></div>
-        <section className="features">
+        <section id="Features" className="features">
             <h2>Built for accuracy.</h2>
             <p className="features-sub">Every verification returns a structured verdict, confidence score, and recommend you can audit.</p>
             <div className="features-grid">
                 <div className="features-card">
                     <h3>Text fact-checking</h3>
-                    <p>Detect misinformation, logical, fallacies, and unsupported claims in articles, posts, and reports.</p>
+                    <p>Detect misinformation, logical fallacies, and unsupported claims in articles, posts, and reports.</p>
                 </div>
                 <div className="features-card">
                     <h3>Code auditing</h3>
@@ -37,7 +37,7 @@ function Home() {
             </div>
         </section>
         <div className="section-divider"></div>
-        <section className="how-work">
+        <section id="How-it-works" className="how-work">
             <h2>Three steps to certainty.</h2>
             <div className="works-grid">
                 <div className="works-card">
