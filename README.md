@@ -20,7 +20,7 @@
 Layer     | Technology          | Notes                              |
 |-----------|---------------------|------------------------------------|
 | Backend   | FastAPI             | Async endpoints                    |
-| Frontend  | React               | Coming later                                 |
+| Frontend  | React               |                                 |
 | LLM       | Gemini              | Used for content analysis (first take free version for test)       |
 | Database  | Supabase (Postgres) | User data and history/analysis storage     |
 | Deploy    | Railway             | Both backend and frontend deployed together |
