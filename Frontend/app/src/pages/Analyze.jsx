@@ -71,7 +71,7 @@ function Analyze() {
                 </div>
             </form>
             {showHistory &&
-                <div className="overlay-panel"></div>}
+                <div onClick={() => setShowHistory(false)} className="overlay-panel"></div>}
             <div className={showHistory ? "history-panel open" : "history-panel"}>
                 <button onClick={() => setShowHistory(false)}>
                     <X className="x-panel" />
