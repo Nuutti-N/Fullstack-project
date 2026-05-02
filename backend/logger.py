@@ -1,7 +1,7 @@
 import logging  # gives tools to make logging
 from logging.handlers import RotatingFileHandler
 import sys
-
+import os
 
 logger = logging.getLogger("backend")
 logger.setLevel(logging.DEBUG)
@@ -16,9 +16,11 @@ formatter = logging.Formatter(
 console_handler.setFormatter(formatter)
 
 # Add rotatingFileHandler, that if hit limit start new.
-file_handler = RotatingFileHandler("app.log", maxBytes=10000, backupCount=3)
-file_handler.setLevel(logging.DEBUG)
-file_handler.setFormatter(formatter)
+if os.getenv("ENVIRONMENT") != "production":
+    file_handler = RotatingFileHandler(
+        "app.log", maxBytes=10000, backupCount=3)
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
 
 if not logger.handlers:
     logger.addHandler(console_handler)
