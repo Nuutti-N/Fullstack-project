@@ -73,10 +73,16 @@ function Analyze() {
             {showHistory &&
                 <div onClick={() => setShowHistory(false)} className="overlay-panel"></div>}
             <div className={showHistory ? "history-panel open" : "history-panel"}>
-                <button onClick={() => setShowHistory(false)}>
-                    <X className="x-panel" />
-                </button>
-                {history.map(item => (<div key={item.id}>
+                <div className="history-navbar">
+                    <History className="history-icon" />
+                    <h2 className="history-title"> History  <span className="history-length">({history.length})</span>
+                    </h2>
+                    <button onClick={() => setShowHistory(false)}>
+                        <X className="x-panel" />
+                    </button>
+                </div>
+                <div className="section-divider"></div>
+                {history.map(item => (<div className="history-item" key={item.id}>
                     <p>{item.claim}</p>
                     <p>{item.score}</p>
                     <p>{item.verdict}</p>
@@ -85,6 +91,11 @@ function Analyze() {
                     <p>{item.recommend}</p>
                     <button onClick={() => handleDelete(item.id)}>Delete</button></div>
                 ))}
+                {history.length === 0 && (
+                    <div className="history-sub">
+                        No analyses yet. Your history will appear here.
+                    </div>
+                )}
             </div>
             {error &&
                 <p style={{ color: "red" }}>{error}</p>}
@@ -103,6 +114,5 @@ function Analyze() {
             )}
         </div>)
 }
-
 
 export default Analyze
