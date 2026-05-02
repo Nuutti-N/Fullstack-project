@@ -135,6 +135,19 @@
     transform: translateX(0);
 }
 
+.x-btn {
+    padding: 8px;
+    border-radius: 6px;
+    color: #64748b;
+    transition: all 0.2s;
+    background-color: transparent;
+}
+
+.x-btn:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+}
+
 .x-panel {
     width: 16px;
     height: 16px;

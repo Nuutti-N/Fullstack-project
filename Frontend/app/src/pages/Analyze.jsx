@@ -77,18 +77,13 @@ function Analyze() {
                     <History className="history-icon" />
                     <h2 className="history-title"> History  <span className="history-length">({history.length})</span>
                     </h2>
-                    <button onClick={() => setShowHistory(false)}>
+                    <button className="x-btn" onClick={() => setShowHistory(false)}>
                         <X className="x-panel" />
                     </button>
                 </div>
                 <div className="section-divider"></div>
                 {history.map(item => (<div className="history-item" key={item.id}>
                     <p>{item.claim}</p>
-                    <p>{item.score}</p>
-                    <p>{item.verdict}</p>
-                    <p>{item.risks}</p>
-                    <p>{item.pros}</p>
-                    <p>{item.recommend}</p>
                     <button onClick={() => handleDelete(item.id)}>Delete</button></div>
                 ))}
                 {history.length === 0 && (
