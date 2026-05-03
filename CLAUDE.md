@@ -200,15 +200,9 @@ The user is learning React step-by-step. Do not write frontend code for them —
 
 ## Known Issues & Gotchas
 
-### Bug — NavBar breaks React rules of hooks (`NavBar.jsx`)
-
-`useEffect` is called after a conditional `return null`. React requires all hooks to be called before any early return. This will cause a runtime error when navigating to `/login` or `/signup`.
-
-Fix: move the `if (location.pathname === ...)` check to **after** all hooks.
 
 ### Security
 
-- Google login button in `Login.jsx` is non-functional — no OAuth backend. Either wire it up or remove it to avoid confusing users.
 - `DELETE /delete_all_history/` permanently deletes all of a user's records with no confirmation. Consider requiring a body param like `{"confirm": true}` before shipping.
 
 ### Tests
@@ -218,7 +212,6 @@ Fix: move the `if (location.pathname === ...)` check to **after** all hooks.
 
 ### Production Readiness
 
-- `echo=True` in `database.py` (if still set) prints every SQL query to stdout — remove before deploying.
 - CORS `allow_origins` hardcodes `localhost` URLs — add the production frontend URL (e.g. Vercel domain) before deploying.
 - `settings.VITE_API_URL` is commented out in CORS origins in `main.py` — uncomment and wire up for production.
-- Analyze and History pages have no styling — ship these before going public.
+
