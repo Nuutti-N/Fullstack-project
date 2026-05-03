@@ -72,13 +72,6 @@ function Login() {
                 <button type="submit" className="auth-submit">Log in
                     <ArrowRight />
                 </button>
-                {/* divider */}
-                <div className="auth-divider">
-                    <div className="line" />
-                    <span> or continue with</span>
-                    <div className="line" />
-                </div>
-
                 <div className="auth-toggle">
                     <p className="auth-no">Don't have an account?</p>
                     <Link to="/signup" className="auth-link">Sign up</Link>
