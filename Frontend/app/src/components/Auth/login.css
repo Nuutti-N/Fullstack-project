@@ -44,7 +44,7 @@ button {
     font-size: 24px;
     font-weight: 600;
     letter-spacing: -.02em;
-    color: #020817;
+    color: #ffffff;
     margin: 0;
 }
 
@@ -59,7 +59,7 @@ Label {
     display: flex;
     font-size: 13px;
     font-weight: 500;
-    color: #0f172a;
+    color: #ffffff;
 }
 
 
@@ -186,10 +186,6 @@ Label {
     width: 100%;
 }
 
-.auth-no {
-    font-size: 14px;
-    color: hsl(215, 16%, 47%);
-}
 
 .auth-link {
     display: inline-flex;
@@ -205,5 +201,5 @@ Label {
     transition: text-decoration 0.15s ease;
     text-decoration: underline;
     text-underline-offset: 4px;
-    color: hsl(222, 84%, 4.9%)
+    color: hsl(0, 0%, 100%)
 }
